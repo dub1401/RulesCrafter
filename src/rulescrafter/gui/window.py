@@ -1,5 +1,5 @@
-from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtGui import QAction
+from PyQt6.QtCore import QSize, Qt, QUrl
+from PyQt6.QtGui import QAction, QDesktopServices
 from PyQt6.QtWidgets import (
 	QFileDialog,
 	QHBoxLayout,
@@ -127,11 +127,23 @@ class MainWindow(QMainWindow):
 
 		edit_menu = self.__menu.addMenu("Edit")
 		assert edit_menu is not None
-		
-		
+
+		dump_version_action = QAction("Dump version", self)
+		dump_version_action.setEnabled(False)
+
+		tags_action = QAction("Tags", self)
+		tags_action.setEnabled(False)
+
+		edit_menu.addAction(dump_version_action)
+		edit_menu.addAction(tags_action)
 
 		about_menu = self.__menu.addMenu("About")
 		assert about_menu is not None
+
+		github_action = QAction("GitHub", self)
+		github_action.triggered.connect(lambda: self.open_link("https://github.com/DUB1401/RulesCrafter"))
+
+		about_menu.addAction(github_action)
 
 	def __build(self):
 		"""Build interface."""
@@ -186,7 +198,7 @@ class MainWindow(QMainWindow):
 		file_path, _  = QFileDialog.getOpenFileName(filter = "JSON Files (*.json)")
 
 		if file_path:
-			
+
 			if self.__operator:
 				self.__rule_editor.close_editor()
 
@@ -195,6 +207,11 @@ class MainWindow(QMainWindow):
 
 			self.__save_action.setEnabled(True)
 			self.__save_as_action.setEnabled(True)
+
+	def open_link(self, link: str):
+		"""Open link in browser."""
+		
+		QDesktopServices.openUrl(QUrl(link))
 
 	def save_file(self):
 		"""Save file."""

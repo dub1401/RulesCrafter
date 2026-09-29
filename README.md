@@ -17,7 +17,7 @@ Simple management system for rulesets: create, edit and sync rules.
 uv venv .venv --prompt rulescrafter
 uv pip install git+https://github.com/DUB1401/RulesCrafter
 ```
-3. Activate virtual environment and run RulesCrafter.
+3. Activate virtual environment and run GUI.
 ```Bash
 source .venv/bin/activated
 craft
