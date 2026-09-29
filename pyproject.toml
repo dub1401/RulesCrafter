@@ -1,0 +1,41 @@
+[build-system]
+requires = ["uv-build>=0.12.18,<0.13.0"]
+build-backend = "uv_build"
+
+[project]
+name = "RulesCrafter"
+version = "0.1.0"
+description = "Rules crafting system."
+readme = "README.md"
+authors = [
+    { name = "DUB1401", email = "vlad.milosta@outlook.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+	"dublib>=0.31.1",
+	"dulwich>=1.2.6",
+	"pyqt6",
+	"pyqt6-multiselect-combobox"
+]
+
+[project.optional-dependencies]
+dev = ["ruff", "ty", "typos"]
+
+[project.scripts]
+craft = "rulescrafter:main"
+
+[tool.ruff.lint]
+select = ["A", "ARG", "C", "COM", "E", "F", "I", "N818", "TC", "UP"]
+ignore = ["C901", "E701", "E501"]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 1
+sections = {"dublib" = ["dublib"]}
+section-order = [
+	"future",
+	"standard-library",
+	"third-party",
+	"dublib",
+	"first-party",
+	"local-folder"
+]
