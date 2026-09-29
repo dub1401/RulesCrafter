@@ -186,6 +186,10 @@ class MainWindow(QMainWindow):
 		file_path, _  = QFileDialog.getOpenFileName(filter = "JSON Files (*.json)")
 
 		if file_path:
+			
+			if self.__operator:
+				self.__rule_editor.close_editor()
+
 			self.__operator = RulesOperator(file_path)
 			self.show_rules_list()
 
