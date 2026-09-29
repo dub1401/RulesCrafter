@@ -7,10 +7,10 @@ from PyQt6.QtWidgets import (
 )
 
 class CopyableLabel(QLabel):
-	"""Copyable lable."""
+	"""Copyable label."""
 
 	def __init__(self, *args, **kargs):
-		"""Copyable lable."""
+		"""Copyable label."""
 
 		super().__init__(*args, **kargs)
 
