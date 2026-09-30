@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=RulesCrafter
+Exec=craft
+Icon=io.github.dub1401.RulesCrafter.svg
+Type=Application
+Categories=Utility;TextTools

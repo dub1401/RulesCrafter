@@ -1,0 +1,7 @@
+maturin
+orjson
+pydantic_core
+pyqt6-qt6
+uv
+uv-build
+watchfiles

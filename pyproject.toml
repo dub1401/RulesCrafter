@@ -20,6 +20,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["ruff", "ty", "typos"]
+flatpak = ["flatpak_pip_generator", "uv"]
 
 [project.scripts]
 craft = "rulescrafter:main"

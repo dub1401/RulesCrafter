@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+    <id>io.github.dub1401.RulesCrafter</id>
+    <metadata_license>MIT</metadata_license>
+    <project_license>GPL-3.0</project_license>
+    <name>RulesCrafter</name>
+    <developer_name>dub1401</developer_name>
+    <launchable type="desktop-id">io.github.dub1401.RulesCrafter.desktop</launchable>
+    <content_rating type="oars-1.1" />
+    <summary>Rules crafting system.</summary>
+    <description>
+        <p>Simple management system for rulesets: create, edit and sync rules.</p>
+    </description>
+    <categories>
+        <category>Utility</category>
+        <category>TextTools</category>
+    </categories>
+    <url type="homepage">https://github.com/dub1401/RulesCrafter</url>
+    <url type="bugtracker">https://github.com/dub1401/RulesCrafter/issues</url>
+    <releases>
+        <release version="0.1.0" date="2026-10-03">
+		<description translatable="no">
+	        <ul>
+		        <li>Sometext.</li>
+	        </ul>
+		</description>
+		</release>
+    </releases>
+</component>
