@@ -13,7 +13,7 @@ class MarkdownBuilder:
 
 	def __rule_to_paragraph(self, rule: "Rule") -> str:
 		"""
-		Generate pragraph string from rule data.
+		Generate paragraph string from rule data.
 
 		:param rule: Rule.
 		:type rule: Rule

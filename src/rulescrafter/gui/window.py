@@ -5,9 +5,9 @@ from PyQt6.QtGui import QAction, QDesktopServices
 from PyQt6.QtWidgets import (
 	QFileDialog,
 	QHBoxLayout,
-	QLabel,
 	QMainWindow,
 	QMenu,
+	QPushButton,
 	QStackedWidget,
 	QVBoxLayout,
 	QWidget,
@@ -86,11 +86,18 @@ class MainWindow(QMainWindow):
 
 		hello = QWidget(self)
 
-		label = QLabel("Open ruleset.")
+		new_button = QPushButton()
+		new_button.setText("Create new ruleset")
+		new_button.clicked.connect(lambda: self.__open_worker(None))
+
+		open_button = QPushButton()
+		open_button.setText("Open ruleset")
+		open_button.clicked.connect(self.open_file)
 
 		layout = QVBoxLayout()
 		layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
-		layout.addWidget(label, stretch = 10)
+		layout.addWidget(new_button)
+		layout.addWidget(open_button)
 
 		hello.setLayout(layout)
 
