@@ -98,7 +98,7 @@ class RuleEditor(QWidget):
 		self.__identifier.setToolTip("Press to copy.")
 
 		self.__save_button = QPushButton(self)
-		self.__save_button.setText("Save")
+		self.__save_button.setText("Apply")
 		self.__save_button.clicked.connect(self.save)
 
 		remove_button = QPushButton(self)
@@ -208,7 +208,6 @@ class RuleEditor(QWidget):
 		self.__rule.set_tags(self.__tags.currentData())
 
 		self.__window.rules_list.update_rules()
-		self.__window.operator.save()
 
 	def select_rule(self, rule: "Rule"):
 		"""

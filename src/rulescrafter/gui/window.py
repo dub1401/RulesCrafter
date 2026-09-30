@@ -1,3 +1,5 @@
+from typing import TYPE_CHECKING
+
 from PyQt6.QtCore import QSize, Qt, QUrl
 from PyQt6.QtGui import QAction, QDesktopServices
 from PyQt6.QtWidgets import (
@@ -13,6 +15,9 @@ from PyQt6.QtWidgets import (
 from ..core.operator import RulesOperator
 from .editor import RuleEditor
 from .list import RulesList
+
+if TYPE_CHECKING:
+	from collections.abc import Callable
 
 class MainWindow(QMainWindow):
 	"""Main window."""
@@ -44,6 +49,26 @@ class MainWindow(QMainWindow):
 		"""Rules list."""
 
 		return self.__rules_list
+
+	#==========================================================================================#
+	# >>>>> PRIVATE METHODS <<<<< #
+	#==========================================================================================#
+
+	def __open_worker(self, file: str | None = None):
+		"""
+		Open worker.
+
+		:param file: Rules file path.
+		:type file: str | None
+		"""
+
+		if self.__operator:
+			self.__rule_editor.close_editor()
+
+		self.__operator = RulesOperator(file)
+		self.rules_list.update_rules()
+		self.__stacked_widget.setCurrentIndex(1)
+		self.set_menu_file_interaction_state(True)
 
 	#==========================================================================================#
 	# >>>>> PRIVATE INTERFACE BUILDERS <<<<< #
@@ -101,15 +126,16 @@ class MainWindow(QMainWindow):
 		assert file_menu is not None
 
 		new_action = QAction("New", self)
-		new_action.triggered.connect(self.new_file)
+		new_action.triggered.connect(lambda: self.__open_worker(None))
 
 		open_action = QAction("Open", self)
 		open_action.triggered.connect(self.open_file)
 
 		self.__save_action = QAction("Save", self)
+		self.__save_action.setShortcut("Ctrl+S")
 		self.__save_action.setEnabled(False)
 		self.__save_action.triggered.connect(self.save_file)
-
+		
 		self.__save_as_action = QAction("Save as", self)
 		self.__save_as_action.setEnabled(False)
 		self.__save_as_action.triggered.connect(self.save_file_as)
@@ -141,7 +167,7 @@ class MainWindow(QMainWindow):
 		assert about_menu is not None
 
 		github_action = QAction("GitHub", self)
-		github_action.triggered.connect(lambda: self.open_link("https://github.com/DUB1401/RulesCrafter"))
+		github_action.triggered.connect(lambda: self.open_link_in_browser("https://github.com/dub1401/RulesCrafter"))
 
 		about_menu.addAction(github_action)
 
@@ -178,19 +204,8 @@ class MainWindow(QMainWindow):
 
 		self.__operator = None
 
-		self.__save_action.setEnabled(False)
-		self.__save_as_action.setEnabled(False)
-
-		self.show_hello()
-
-	def new_file(self):
-		"""Create file."""
-
-		self.__operator = RulesOperator()
-		self.show_rules_list()
-
-		self.__save_action.setEnabled(True)
-		self.__save_as_action.setEnabled(True)
+		self.set_menu_file_interaction_state(False)
+		self.__stacked_widget.setCurrentIndex(0)
 
 	def open_file(self):
 		"""Open file."""
@@ -198,17 +213,9 @@ class MainWindow(QMainWindow):
 		file_path, _  = QFileDialog.getOpenFileName(filter = "JSON Files (*.json)")
 
 		if file_path:
+			self.__open_worker(file_path)
 
-			if self.__operator:
-				self.__rule_editor.close_editor()
-
-			self.__operator = RulesOperator(file_path)
-			self.show_rules_list()
-
-			self.__save_action.setEnabled(True)
-			self.__save_as_action.setEnabled(True)
-
-	def open_link(self, link: str):
+	def open_link_in_browser(self, link: str):
 		"""Open link in browser."""
 		
 		QDesktopServices.openUrl(QUrl(link))
@@ -236,13 +243,18 @@ class MainWindow(QMainWindow):
 			self.__operator.set_file_path(file_path)
 			self.__operator.save()
 
-	def show_hello(self):
-		"""Show hello page."""
+	def set_menu_file_interaction_state(self, status: bool):
+		"""
+		Set menu file interaction state.
 
-		self.__stacked_widget.setCurrentIndex(0)
+		:param status: Is file loaded.
+		:type status: bool
+		"""
 
-	def show_rules_list(self):
-		"""Show rules_list."""
+		elements: tuple[Callable, ...] = (
+			self.__save_action.setEnabled,
+			self.__save_as_action.setEnabled,
+		)
 
-		self.rules_list.update_rules()
-		self.__stacked_widget.setCurrentIndex(1)
+		for element in elements:
+			element(status)

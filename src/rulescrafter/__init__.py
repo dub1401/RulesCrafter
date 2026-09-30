@@ -9,7 +9,6 @@ def main():
 
 	window = MainWindow()
 	window.show()
-	window.show_hello()
 	application.exec()
 
 if __name__ == "__main__":
