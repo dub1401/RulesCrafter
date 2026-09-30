@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 from PyQt6.QtCore import QSize, Qt, QUrl
 from PyQt6.QtGui import QAction, QDesktopServices
@@ -7,11 +7,13 @@ from PyQt6.QtWidgets import (
 	QHBoxLayout,
 	QLabel,
 	QMainWindow,
+	QMenu,
 	QStackedWidget,
 	QVBoxLayout,
 	QWidget,
 )
 
+from ..builders.markdown import MarkdownBuilder
 from ..core.operator import RulesOperator
 from .editor import RuleEditor
 from .list import RulesList
@@ -84,7 +86,7 @@ class MainWindow(QMainWindow):
 
 		hello = QWidget(self)
 
-		label = QLabel("Open rules file or connect to repository.")
+		label = QLabel("Open ruleset.")
 
 		layout = QVBoxLayout()
 		layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -151,17 +153,15 @@ class MainWindow(QMainWindow):
 		file_menu.addSeparator()
 		file_menu.addAction(close_action)
 
-		edit_menu = self.__menu.addMenu("Edit")
-		assert edit_menu is not None
+		self.__edit_menu = cast("QMenu", self.__menu.addMenu("Edit"))
+		self.__edit_menu.setEnabled(False)
 
 		dump_version_action = QAction("Dump version", self)
-		dump_version_action.setEnabled(False)
 
 		tags_action = QAction("Tags", self)
-		tags_action.setEnabled(False)
 
-		edit_menu.addAction(dump_version_action)
-		edit_menu.addAction(tags_action)
+		self.__edit_menu.addAction(dump_version_action)
+		self.__edit_menu.addAction(tags_action)
 
 		about_menu = self.__menu.addMenu("About")
 		assert about_menu is not None
@@ -237,9 +237,18 @@ class MainWindow(QMainWindow):
 		if not self.__operator:
 			return
 
-		file_path, _  = QFileDialog.getSaveFileName(filter = "JSON Files (*.json)")
+		filters: tuple[str, ...] = (
+			"JSON Files (*.json)",
+			"Markdown (*.md)",
+		)
+		file_path, selected_filter  = QFileDialog.getSaveFileName(filter = ";;".join(filters))
 		
 		if file_path:
+
+			if "*.md" in selected_filter:
+				MarkdownBuilder(self.__operator).dump_to_file(file_path)
+				return
+			
 			self.__operator.set_file_path(file_path)
 			self.__operator.save()
 
@@ -254,6 +263,7 @@ class MainWindow(QMainWindow):
 		elements: tuple[Callable, ...] = (
 			self.__save_action.setEnabled,
 			self.__save_as_action.setEnabled,
+			self.__edit_menu.setEnabled,
 		)
 
 		for element in elements:
