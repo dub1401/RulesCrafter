@@ -1,6 +1,6 @@
 # Build Flatpak modules
-1. Install [uv](https://docs.astral.sh/uv/) project manager on your system.
-2. Clone this repository.
+1. Install [uv](https://docs.astral.sh/uv) project manager on your system.
+2. Clone repository.
 ```Bash
 git clone https://github.com/dub1401/RulesCrafter
 cd RulesCrafter
@@ -12,5 +12,5 @@ uv pip install .[flatpak]
 ```
 4. Run modules building script.
 ```Bash
-flatpak/modules.sh
+flatpak/build-modules.sh
 ```
