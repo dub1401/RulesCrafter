@@ -15,6 +15,7 @@ from PyQt6.QtWidgets import (
 
 from ..builders.markdown import MarkdownBuilder
 from ..core.operator import RulesOperator
+from . import icons
 from .editor import RuleEditor
 from .list import RulesList
 
@@ -87,10 +88,12 @@ class MainWindow(QMainWindow):
 		hello = QWidget(self)
 
 		new_button = QPushButton()
+		new_button.setIcon(icons.NEW)
 		new_button.setText("Create new ruleset")
 		new_button.clicked.connect(lambda: self.__open_worker(None))
-
+		
 		open_button = QPushButton()
+		open_button.setIcon(icons.OPEN)
 		open_button.setText("Open ruleset")
 		open_button.clicked.connect(self.open_file)
 
@@ -135,21 +138,30 @@ class MainWindow(QMainWindow):
 		assert file_menu is not None
 
 		new_action = QAction("New", self)
+		new_action.setIcon(icons.NEW)
+		new_action.setShortcut("Ctrl+N")
 		new_action.triggered.connect(lambda: self.__open_worker(None))
 
 		open_action = QAction("Open", self)
+		open_action.setIcon(icons.OPEN)
+		open_action.setShortcut("Ctrl+O")
 		open_action.triggered.connect(self.open_file)
 
 		self.__save_action = QAction("Save", self)
+		self.__save_action.setIcon(icons.SAVE)
 		self.__save_action.setShortcut("Ctrl+S")
 		self.__save_action.setEnabled(False)
 		self.__save_action.triggered.connect(self.save_file)
 		
 		self.__save_as_action = QAction("Save as", self)
+		self.__save_as_action.setIcon(icons.SAVE_AS)
+		self.__save_as_action.setShortcut("Ctrl+Shift+S")
 		self.__save_as_action.setEnabled(False)
 		self.__save_as_action.triggered.connect(self.save_file_as)
 
 		close_action = QAction("Close", self)
+		close_action.setIcon(icons.CLOSE)
+		close_action.setShortcut("Ctrl+Q")
 		close_action.triggered.connect(self.close_file)
 
 		file_menu.addAction(new_action)
@@ -174,6 +186,7 @@ class MainWindow(QMainWindow):
 		assert about_menu is not None
 
 		github_action = QAction("GitHub", self)
+		github_action.setIcon(icons.GITHUB)
 		github_action.triggered.connect(lambda: self.open_link_in_browser("https://github.com/dub1401/RulesCrafter"))
 
 		about_menu.addAction(github_action)
