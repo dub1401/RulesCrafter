@@ -250,3 +250,13 @@ class RulesOperator:
 		"""
 
 		self.__data.version = version
+
+	def to_dict(self) -> dict:
+		"""
+		Build dictionary representation of the instance.
+
+		:return: Dictionary representation of the instance.
+		:rtype: dict
+		"""
+
+		return self.__data_adapter.dump_python(self.__data)

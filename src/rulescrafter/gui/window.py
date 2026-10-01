@@ -14,6 +14,7 @@ from PyQt6.QtWidgets import (
 )
 
 from ..builders.markdown import MarkdownBuilder
+from ..builders.yaml import YAMLBuilder
 from ..core.operator import RulesOperator
 from . import icons
 from .dialogs.dumper import VersionDumper
@@ -279,6 +280,7 @@ class MainWindow(QMainWindow):
 
 		filters: tuple[str, ...] = (
 			"JSON (*.json)",
+			"YAML (*.yml *.yaml)",
 			"Markdown (*.md)",
 		)
 		file_path, selected_filter  = QFileDialog.getSaveFileName(filter = ";;".join(filters))
@@ -287,6 +289,10 @@ class MainWindow(QMainWindow):
 
 			if "*.md" in selected_filter:
 				MarkdownBuilder(self.__operator).dump_to_file(file_path)
+				return
+
+			if "*.yml" in selected_filter or "*.yaml" in selected_filter:
+				YAMLBuilder(self.__operator).dump_to_file(file_path)
 				return
 			
 			self.__operator.set_file_path(file_path)
