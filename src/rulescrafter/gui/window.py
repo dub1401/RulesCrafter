@@ -176,8 +176,10 @@ class MainWindow(QMainWindow):
 		self.__edit_menu.setEnabled(False)
 
 		dump_version_action = QAction("Dump version", self)
+		dump_version_action.setIcon(icons.DUMP)
 
 		tags_action = QAction("Tags", self)
+		tags_action.setIcon(icons.TAGS)
 
 		self.__edit_menu.addAction(dump_version_action)
 		self.__edit_menu.addAction(tags_action)
