@@ -1,0 +1,3 @@
+flatpak_pip_generator
+pyinstaller
+pyqt6

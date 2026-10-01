@@ -129,7 +129,7 @@ class Rule:
 
 		:param tags: Tags sequence.
 		:type tags: str
-		:raises 
+		:raises ValueError: Unknown tag.
 		"""
 
 		for tag in tags:

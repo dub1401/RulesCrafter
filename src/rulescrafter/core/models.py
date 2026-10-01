@@ -15,5 +15,7 @@ class RulesFileModel(BaseModel):
 	"""Rules file model."""
 
 	version: str | None = None
-	allowed_tags: list[str] = []
+	name: str | None = None
+	description: str | None = None
+	allowed_tags: Sequence[str] = ()
 	rules: Sequence[RuleModel] = ()

@@ -1,0 +1,48 @@
+name: Build for Linux
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v10.2.0
+      with:
+        enable-cache: true
+
+    - name: Set up Python
+      run: uv python install 3.14
+
+    - name: Install dependencies
+      run: uv sync --extra build
+
+    - name: Build with PyInstaller
+      run: |
+        REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
+        RAW_VERSION="${{ github.event.release.tag_name }}"
+        VERSION=$(echo "$RAW_VERSION" | sed 's/^[vV]//')
+        BIN_NAME="${REPO_NAME}-${VERSION}-linux-x86_64"
+
+        echo "BINARY_NAME=$BIN_NAME" >> $GITHUB_ENV
+
+        uv run pyinstaller \
+          --onefile \
+          --noconsole \
+          --noconfirm \
+          src/rulescrafter/__init__.py \
+          --name "${BIN_NAME}" \
+          --add-data "src/rulescrafter/gui/icons:rulescrafter/gui/icons"
+
+    - name: Upload release asset
+      uses: softprops/action-gh-release@v2
+      with:
+        files: dist/${{ env.BINARY_NAME }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -3,6 +3,7 @@ import uuid
 from datetime import datetime
 from os import PathLike
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from pydantic import TypeAdapter
 
@@ -11,14 +12,17 @@ from dublib.functions.filesystem import json
 from .models import RuleModel, RulesFileModel
 from .rule import Rule
 
+if TYPE_CHECKING:
+	from collections.abc import Sequence
+
 class RulesOperator:
 	"""Rules operator."""
 
 	@property
-	def allowed_tags(self) -> list[str]:
+	def allowed_tags(self) -> tuple[str, ...]:
 		"""Allowed tags."""
 
-		return self.__data.allowed_tags.copy()
+		return tuple(self.__data.allowed_tags)
 
 	@property
 	def file(self) -> Path | None:
@@ -159,6 +163,16 @@ class RulesOperator:
 		
 		json.write(self.__file, data)
 
+	def set_allowed_tags(self, tags: "Sequence[str]"):
+		"""
+		Set allowed tags.
+
+		:param tags: Allowed tags.
+		:type tags: Sequence[str]
+		"""
+
+		self.__data.allowed_tags = tags
+
 	def set_file_path(self, file: PathLike[str] | str):
 		"""
 		Set file path.
@@ -168,5 +182,4 @@ class RulesOperator:
 		"""
 
 		self.__file = Path(file).with_suffix(".json")
-
 		

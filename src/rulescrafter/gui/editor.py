@@ -218,16 +218,22 @@ class RuleEditor(QWidget):
 		"""
 
 		self.__rule = rule
+		self.update_tags()
+		self.__update()
+		
+	def update_tags(self):
+		"""Update tags selector."""
 
-		tags: list[str] = self.__window.operator.allowed_tags
+		if self.__window.operator is None:
+			return
+
+		tags: list[str] = list(self.__window.operator.allowed_tags)
 
 		if tags:
 			self.__tags.setEnabled(True)
 			self.__tags.setToolTip(None)
+			self.__tags.clear()
 			self.__tags.addItems(tags)
 		else:
 			self.__tags.setEnabled(False)
 			self.__tags.setToolTip("No allowed tags.")
-
-		self.__update()
-		

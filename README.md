@@ -7,7 +7,7 @@
 Simple management system for rulesets: create, edit and sync rules.
 
 <p align="center">
-	<img src="icon.svg" width=25% height=25% align="center">
+	<img src="flatpak/icon.svg" width=25% height=25% align="center">
 </p>
 
 ## Getting started

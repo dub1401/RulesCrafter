@@ -16,6 +16,7 @@ from PyQt6.QtWidgets import (
 from ..builders.markdown import MarkdownBuilder
 from ..core.operator import RulesOperator
 from . import icons
+from .dialogs.tagger import TagsEditor
 from .editor import RuleEditor
 from .list import RulesList
 
@@ -180,7 +181,8 @@ class MainWindow(QMainWindow):
 
 		tags_action = QAction("Tags", self)
 		tags_action.setIcon(icons.TAGS)
-
+		tags_action.triggered.connect(self.__tags_editor.run_editor)
+		
 		self.__edit_menu.addAction(dump_version_action)
 		self.__edit_menu.addAction(tags_action)
 
@@ -202,6 +204,8 @@ class MainWindow(QMainWindow):
 		self.__stacked_widget.addWidget(self.__build_worker())
 
 		self.setCentralWidget(self.__stacked_widget)
+
+		self.__tags_editor = TagsEditor(self)
 
 		self.__build_menu()
 

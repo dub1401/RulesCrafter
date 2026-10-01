@@ -2,7 +2,7 @@ import sys
 
 from PyQt6.QtWidgets import QApplication
 
-from .gui.window import MainWindow
+from rulescrafter.gui.window import MainWindow
 
 def main():
 	application = QApplication(sys.argv)
