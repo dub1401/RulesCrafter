@@ -16,6 +16,7 @@ from PyQt6.QtWidgets import (
 from ..builders.markdown import MarkdownBuilder
 from ..core.operator import RulesOperator
 from . import icons
+from .dialogs.dumper import VersionDumper
 from .dialogs.tagger import TagsEditor
 from .editor import RuleEditor
 from .list import RulesList
@@ -160,10 +161,11 @@ class MainWindow(QMainWindow):
 		self.__save_as_action.setEnabled(False)
 		self.__save_as_action.triggered.connect(self.save_file_as)
 
-		close_action = QAction("Close", self)
-		close_action.setIcon(icons.CLOSE)
-		close_action.setShortcut("Ctrl+Q")
-		close_action.triggered.connect(self.close_file)
+		self.__close_action = QAction("Close", self)
+		self.__close_action.setIcon(icons.CLOSE)
+		self.__close_action.setShortcut("Ctrl+Q")
+		self.__close_action.triggered.connect(self.close_file)
+		self.__close_action.setEnabled(False)
 
 		file_menu.addAction(new_action)
 		file_menu.addAction(open_action)
@@ -171,16 +173,19 @@ class MainWindow(QMainWindow):
 		file_menu.addAction(self.__save_action)
 		file_menu.addAction(self.__save_as_action)
 		file_menu.addSeparator()
-		file_menu.addAction(close_action)
+		file_menu.addAction(self.__close_action)
 
 		self.__edit_menu = cast("QMenu", self.__menu.addMenu("Edit"))
 		self.__edit_menu.setEnabled(False)
 
 		dump_version_action = QAction("Dump version", self)
 		dump_version_action.setIcon(icons.DUMP)
+		dump_version_action.setShortcut("Ctrl+D")
+		dump_version_action.triggered.connect(self.__version_dumper.run_dumper)
 
 		tags_action = QAction("Tags", self)
 		tags_action.setIcon(icons.TAGS)
+		tags_action.setShortcut("Ctrl+T")
 		tags_action.triggered.connect(self.__tags_editor.run_editor)
 		
 		self.__edit_menu.addAction(dump_version_action)
@@ -206,6 +211,7 @@ class MainWindow(QMainWindow):
 		self.setCentralWidget(self.__stacked_widget)
 
 		self.__tags_editor = TagsEditor(self)
+		self.__version_dumper = VersionDumper(self)
 
 		self.__build_menu()
 
@@ -290,6 +296,7 @@ class MainWindow(QMainWindow):
 			self.__save_action.setEnabled,
 			self.__save_as_action.setEnabled,
 			self.__edit_menu.setEnabled,
+			self.__close_action.setEnabled,
 		)
 
 		for element in elements:

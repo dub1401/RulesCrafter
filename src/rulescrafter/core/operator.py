@@ -36,6 +36,12 @@ class RulesOperator:
 
 		return tuple(self.__rules.values())
 
+	@property
+	def version(self) -> str | None:
+		"""Ruleset version."""
+
+		return self.__data.version
+
 	def __generate_uuid(self) -> str:
 		"""
 		Generate unique UUIDv4.
@@ -50,16 +56,6 @@ class RulesOperator:
 			value = str(uuid.uuid4())
 
 		return value
-
-	def __get_version_string(self) -> str:
-		"""
-		Generate today string for version.
-
-		:return: Version string from date
-		:rtype: str
-		"""
-
-		return datetime.now().strftime("%Y.%m.%d")
 
 	def __init__(self, file: PathLike[str] | str | None = None):
 		"""
@@ -90,6 +86,35 @@ class RulesOperator:
 		self.__rules[identifier] = rule
 
 		return rule
+
+	def generate_version(self) -> str:
+		"""
+		Generate today string for version.
+
+		:return: Version string from date
+		:rtype: str
+		"""
+
+		version: str | None = self.__data.version
+
+		if not version:
+			return datetime.now().strftime("%Y.%m.%d")
+
+		points_count: int = version.count(".")
+
+		match points_count:
+
+			case 2:
+				version += ".1"
+				
+			case 3:
+				parts: list[str] = version.split(".")
+				index: int = int(parts[-1])
+				index += 1
+				parts[-1] = str(index)
+				version = ".".join(parts)
+
+		return version
 
 	def get_rule(self, rule_id: str) -> Rule:
 		"""
@@ -183,3 +208,12 @@ class RulesOperator:
 
 		self.__file = Path(file).with_suffix(".json")
 		
+	def set_version(self, version: str):
+		"""
+		Set ruleset version.
+
+		:param version: Ruleset version.
+		:type version: str
+		"""
+
+		self.__data.version = version
