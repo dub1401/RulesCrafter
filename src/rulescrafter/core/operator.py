@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 
 from pydantic import TypeAdapter
 
+from dublib.functions.data import zerotify
 from dublib.functions.filesystem import json
 
 from .models import RuleModel, RulesFileModel
@@ -23,6 +24,18 @@ class RulesOperator:
 		"""Allowed tags."""
 
 		return tuple(self.__data.allowed_tags)
+
+	@property
+	def description(self) -> str | None:
+		"""Ruleset description."""
+
+		return self.__data.description
+
+	@property
+	def name(self) -> str | None:
+		"""Ruleset name."""
+
+		return self.__data.name
 
 	@property
 	def file(self) -> Path | None:
@@ -177,6 +190,16 @@ class RulesOperator:
 		del self.__rules[rule_id]
 		self.save()
 	
+	def rename(self, name: str | None):
+		"""
+		Rename ruleset.
+
+		:param name: Ruleset name.
+		:type name: str | None
+		"""
+
+		self.__data.name = name
+
 	def save(self):
 		"""Save rules to file."""
 
@@ -197,6 +220,16 @@ class RulesOperator:
 		"""
 
 		self.__data.allowed_tags = tags
+
+	def set_description(self, description: str | None):
+		"""
+		Set ruleset description.
+
+		:param description: Ruleset description.
+		:type description: str | None
+		"""
+
+		self.__data.description = zerotify(description)
 
 	def set_file_path(self, file: PathLike[str] | str):
 		"""

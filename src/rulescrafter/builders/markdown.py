@@ -49,9 +49,19 @@ class MarkdownBuilder:
 			self.__operator.rules, 
 			key = lambda rule: (rule.number is None, rule.number),
 		))
-		paragraphs: tuple[str, ...] = tuple(self.__rule_to_paragraph(rule) for rule in rules)
 
-		text.write(file_path, paragraphs)
+		content: list[str] = []
+		paragraphs: list[str] = [self.__rule_to_paragraph(rule) for rule in rules]
+
+		if self.__operator.name:
+			content.append(f"# {self.__operator.name}")
+
+		if self.__operator.description:
+			content.append(f"{self.__operator.description}\n")
+
+		content += paragraphs
+
+		text.write(file_path, content)
 
 
 	

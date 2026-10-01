@@ -17,6 +17,7 @@ from ..builders.markdown import MarkdownBuilder
 from ..core.operator import RulesOperator
 from . import icons
 from .dialogs.dumper import VersionDumper
+from .dialogs.metainfo import MetainfoEditor
 from .dialogs.tagger import TagsEditor
 from .editor import RuleEditor
 from .list import RulesList
@@ -178,6 +179,11 @@ class MainWindow(QMainWindow):
 		self.__edit_menu = cast("QMenu", self.__menu.addMenu("Edit"))
 		self.__edit_menu.setEnabled(False)
 
+		metainfo_editor = QAction("Metainfo", self)
+		metainfo_editor.setIcon(icons.EDIT)
+		metainfo_editor.setShortcut("Ctrl+E")
+		metainfo_editor.triggered.connect(self.__metainfo_editor.run_editor)
+
 		dump_version_action = QAction("Dump version", self)
 		dump_version_action.setIcon(icons.DUMP)
 		dump_version_action.setShortcut("Ctrl+D")
@@ -188,6 +194,7 @@ class MainWindow(QMainWindow):
 		tags_action.setShortcut("Ctrl+T")
 		tags_action.triggered.connect(self.__tags_editor.run_editor)
 		
+		self.__edit_menu.addAction(metainfo_editor)
 		self.__edit_menu.addAction(dump_version_action)
 		self.__edit_menu.addAction(tags_action)
 
@@ -210,6 +217,7 @@ class MainWindow(QMainWindow):
 
 		self.setCentralWidget(self.__stacked_widget)
 
+		self.__metainfo_editor = MetainfoEditor(self)
 		self.__tags_editor = TagsEditor(self)
 		self.__version_dumper = VersionDumper(self)
 
@@ -242,7 +250,7 @@ class MainWindow(QMainWindow):
 	def open_file(self):
 		"""Open file."""
 
-		file_path, _  = QFileDialog.getOpenFileName(filter = "JSON Files (*.json)")
+		file_path, _  = QFileDialog.getOpenFileName(filter = "JSON (*.json)")
 
 		if file_path:
 			self.__open_worker(file_path)
@@ -270,7 +278,7 @@ class MainWindow(QMainWindow):
 			return
 
 		filters: tuple[str, ...] = (
-			"JSON Files (*.json)",
+			"JSON (*.json)",
 			"Markdown (*.md)",
 		)
 		file_path, selected_filter  = QFileDialog.getSaveFileName(filter = ";;".join(filters))

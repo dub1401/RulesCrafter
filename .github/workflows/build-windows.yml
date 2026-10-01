@@ -1,0 +1,44 @@
+name: Build for Windows
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v10.2.0
+      with:
+        enable-cache: true
+
+    - name: Set up Python
+      run: uv python install 3.14
+
+    - name: Install dependencies
+      run: uv sync --extra build
+
+    - name: Build with PyInstaller
+      run: |
+        $repoName = "${{ github.repository }}".Split("/")[1]
+        $rawVersion = "${{ github.event.release.tag_name }}"
+        $version = $rawVersion -replace '^[vV]', ''
+
+        uv run pyinstaller \
+          --onefile \
+          --noconsole \
+          src/rulescrafter/__init__.py \
+          --name ${repoName}-${version}-windows-x86_64.exe" \
+          --add-data "src/rulescrafter/gui/icons;rulescrafter/gui/icons"
+
+    - name: Upload release asset
+      uses: softprops/action-gh-release@v2
+      with:
+        files: dist/*-windows-x86_64.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -4,6 +4,7 @@ from PyQt6.QtGui import QIcon
 
 CLOSE = QIcon(str(resources.files("rulescrafter.gui.icons") / "close.svg"))
 DUMP = QIcon(str(resources.files("rulescrafter.gui.icons") / "dump.svg"))
+EDIT = QIcon(str(resources.files("rulescrafter.gui.icons") / "edit.svg"))
 GITHUB = QIcon(str(resources.files("rulescrafter.gui.icons") / "github.svg"))
 NEW = QIcon(str(resources.files("rulescrafter.gui.icons") / "new.svg"))
 OPEN = QIcon(str(resources.files("rulescrafter.gui.icons") / "open.svg"))
