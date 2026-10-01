@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 For visual categorization of changes emojis are used in accordance with [gitmoji](https://gitmoji.dev).
 
-## [Unreleased]
+## [0.2.0] - 2026-10-01
 
 ### ✨ Added
 - Export ruleset as YAML.
+- Export ruleset as PDF.

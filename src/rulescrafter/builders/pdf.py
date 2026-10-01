@@ -2,22 +2,24 @@ from os import PathLike
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from dublib.functions.filesystem import yaml
+from markdown_pdf import MarkdownPdf, Section
+
+from .markdown import MarkdownBuilder
 
 if TYPE_CHECKING:
 	from ..core.operator import RulesOperator
 
-class YAMLBuilder:
-	"""YAML builder."""
+class PDFBuilder:
+	"""PDF builder."""
 
 	def __init__(self, operator: "RulesOperator"):
 		"""
-		YAML builder.
+		PDF builder.
 
 		:param operator: Rules operator.
 		:type operator: RulesOperator
 		"""
-		
+
 		self.__operator: RulesOperator = operator
 
 	def dump_to_file(self, file_path: PathLike[str] | str):
@@ -28,18 +30,13 @@ class YAMLBuilder:
 		:type file_path: PathLike[str] | str
 		"""
 
+		file_path = Path(file_path).with_suffix(".pdf")
+		generator = MarkdownPdf(toc_level = 2)
+		markdown = MarkdownBuilder(self.__operator)
 
-		file_path = Path(file_path)
-		
-		if file_path.suffix != ".yaml":
-			file_path = file_path.with_suffix(".yml")
+		if self.__operator.name:
+			generator.meta["title"] = self.__operator.name
 
-		data: dict = self.__operator.to_dict()
-		data["allowed_tags"] = list(data["allowed_tags"])
-		data["rules"] = list(data["rules"])
-
-		for rule in data["rules"]:
-			rule["tags"] = list(rule["tags"])
-
-		yaml.write(file_path, data)
+		generator.add_section(Section(markdown.build()))
+		generator.save(file_path)
 	

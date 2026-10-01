@@ -35,16 +35,14 @@ class MarkdownBuilder:
 		"""
 		self.__operator: RulesOperator = operator
 
-	def dump_to_file(self, file_path: PathLike[str] | str):
+	def build(self) -> str:
 		"""
-		Dump ruleset in Markdown file.
+		Build Markdown text.
 
-		:param file_path: Path to Markdown file.
-		:type file_path: PathLike[str] | str
+		:return: Markdown text.
+		:rtype: str
 		"""
 
-		file_path = Path(file_path).with_suffix(".md")
-		
 		rules: tuple[Rule, ...] = tuple(sorted(
 			self.__operator.rules, 
 			key = lambda rule: (rule.number is None, rule.number),
@@ -61,7 +59,15 @@ class MarkdownBuilder:
 
 		content += paragraphs
 
-		text.write(file_path, content)
+		return "\n".join(content)
 
+	def dump_to_file(self, file_path: PathLike[str] | str):
+		"""
+		Dump ruleset in Markdown file.
 
-	
+		:param file_path: Path to Markdown file.
+		:type file_path: PathLike[str] | str
+		"""
+
+		file_path = Path(file_path).with_suffix(".md")
+		text.write(file_path, self.build())

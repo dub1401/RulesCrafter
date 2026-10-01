@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import TYPE_CHECKING, cast
 
 from PyQt6.QtCore import QSize, Qt, QUrl
@@ -13,8 +14,7 @@ from PyQt6.QtWidgets import (
 	QWidget,
 )
 
-from ..builders.markdown import MarkdownBuilder
-from ..builders.yaml import YAMLBuilder
+from .. import builders
 from ..core.operator import RulesOperator
 from . import icons
 from .dialogs.dumper import VersionDumper
@@ -60,6 +60,21 @@ class MainWindow(QMainWindow):
 	#==========================================================================================#
 	# >>>>> PRIVATE METHODS <<<<< #
 	#==========================================================================================#
+
+	def __extract_file_filter_extension(self, filter_string: str) -> str:
+		"""
+		Extract file filter extension.
+
+		:param filter_string: File filter.
+		:type filter_string: str
+		:return: Filter extension.
+		:rtype: str
+		"""
+
+		parts: list[str] = filter_string.split("(", maxsplit = 1)
+		extensions: list[str] = parts[-1].rstrip(")").lstrip("*").split(" ")
+
+		return extensions[0]
 
 	def __open_worker(self, file: str | None = None):
 		"""
@@ -282,21 +297,29 @@ class MainWindow(QMainWindow):
 			"JSON (*.json)",
 			"YAML (*.yml *.yaml)",
 			"Markdown (*.md)",
+			"PDF (*.pdf)",
 		)
 		file_path, selected_filter  = QFileDialog.getSaveFileName(filter = ";;".join(filters))
-		
-		if file_path:
+		extension: str = self.__extract_file_filter_extension(selected_filter)
+		file: Path = Path(file_path)
 
-			if "*.md" in selected_filter:
-				MarkdownBuilder(self.__operator).dump_to_file(file_path)
-				return
+		if not file.suffix:
+			file = file.with_suffix(extension)
 
-			if "*.yml" in selected_filter or "*.yaml" in selected_filter:
-				YAMLBuilder(self.__operator).dump_to_file(file_path)
-				return
-			
-			self.__operator.set_file_path(file_path)
-			self.__operator.save()
+		match file.suffix:
+
+			case ".md":
+				builders.MarkdownBuilder(self.__operator).dump_to_file(file_path)
+
+			case ".yml" | ".yaml":
+				builders.YAMLBuilder(self.__operator).dump_to_file(file_path)
+
+			case ".pdf":
+				builders.PDFBuilder(self.__operator).dump_to_file(file_path)
+
+			case _:
+				self.__operator.set_file_path(file_path)
+				self.__operator.save()
 
 	def set_menu_file_interaction_state(self, status: bool):
 		"""
