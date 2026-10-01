@@ -32,12 +32,12 @@ jobs:
     - name: Build with PyInstaller
       shell: pwsh
       env:
-        RAW_VERSION: \${{ github.event.release.tag_name || github.event.inputs.version }}
+        RAW_VERSION: ${{ github.event.release.tag_name || github.event.inputs.version }}
       run: |
-        repoName = "{{ github.repository }}".Split("/")[1]
-        rawVersion = "env:RAW_VERSION"
-        version = rawVersion -replace '^[vV]', ''
-
+        $repoName = "{{ github.repository }}".Split("/")[1]
+        $rawVersion = $env:RAW_VERSION
+        $version = $rawVersion -replace '^[vV]', ''
+        
         uv run pyinstaller `
           --onefile `
           --noconsole `
