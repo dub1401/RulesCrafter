@@ -1,0 +1,37 @@
+name: Build Flatpak
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release tag."
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.inputs.version || github.ref }}
+
+      - name: Build Flatpak bundle
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: io.github.dub1401.RulesCrafter.flatpak
+          manifest-path: flatpak/io.github.dub1401.RulesCrafter.json
+          app-id: io.github.dub1401.RulesCrafter
+          run-tests: true
+
+      - name: Upload Flatpak to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: io.github.dub1401.RulesCrafter.flatpak

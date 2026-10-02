@@ -219,7 +219,9 @@ class RuleEditor(QWidget):
 
 		self.__rule = rule
 		self.update_tags()
+		
 		self.__update()
+		self.__tags.setCurrentText(self.__rule.tags or "")
 		
 	def update_tags(self):
 		"""Update tags selector."""

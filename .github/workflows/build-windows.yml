@@ -14,12 +14,12 @@ permissions:
   contents: write
 
 jobs:
-  build-windows:
+  build:
     runs-on: windows-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v7
       with:
         ref: ${{ github.event.inputs.version || github.ref }}
 
@@ -38,8 +38,9 @@ jobs:
       shell: pwsh
       env:
         RAW_VERSION: ${{ github.event.release.tag_name || github.event.inputs.version }}
+        REPO_FULL_NAME: ${{ github.repository }}
       run: |
-        $repoName = "{{ github.repository }}".Split("/")[1]
+        $repoName = $env:REPO_FULL_NAME.Split("/")[1]
         $rawVersion = $env:RAW_VERSION
         $version = $rawVersion -replace '^[vV]', ''
         
