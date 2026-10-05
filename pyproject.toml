@@ -1,10 +1,10 @@
 [build-system]
-requires = ["uv-build>=0.12.18,<0.13.0"]
+requires = ["uv-build>=0.12.23,<0.13.0"]
 build-backend = "uv_build"
 
 [project]
 name = "RulesCrafter"
-version = "0.2.1"
+version = "0.2.2"
 description = "Rules crafting system."
 readme = "README.md"
 authors = [

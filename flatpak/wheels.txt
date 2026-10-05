@@ -1,6 +1,7 @@
 maturin
 orjson
 pydantic_core
+pymupdf
 pyqt6-qt6
 uv
 uv-build

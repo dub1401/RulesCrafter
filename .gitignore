@@ -1,2 +1,5 @@
+# Python cache.
 __pycache__
-*.json
+# Work files.
+/*.json
+/*.pdf

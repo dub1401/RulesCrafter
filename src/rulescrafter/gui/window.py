@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import TYPE_CHECKING, cast
 
 from PyQt6.QtCore import QSize, Qt
@@ -24,8 +25,7 @@ from .list import RulesList
 
 if TYPE_CHECKING:
 	from collections.abc import Callable
-	from pathlib import Path
-
+	
 class MainWindow(QMainWindow):
 	"""Main window."""
 
@@ -281,7 +281,7 @@ class MainWindow(QMainWindow):
 			"Markdown (*.md)",
 			"PDF (*.pdf)",
 		)
-		file = select_file("s", filters)
+		file = select_file("s", filters, self.__operator.version)
 
 		if not file:
 			return
@@ -289,8 +289,9 @@ class MainWindow(QMainWindow):
 		file_path: Path = file.path
 		suffixes = file.filter_suffixes
 
-		if not file_path.suffix and suffixes:
-			file_path = file_path.with_suffix(suffixes[0])
+		if suffixes and file_path.suffix not in suffixes:
+			path_string: str = file_path.as_posix().rstrip(".")
+			file_path = Path(path_string + suffixes[0])
 
 		match file_path.suffix:
 
@@ -306,8 +307,7 @@ class MainWindow(QMainWindow):
 			case _:
 				self.__operator.set_file_path(file_path)
 				self.__operator.save()
-
-		self.set_unsaved_state(False)
+				self.set_unsaved_state(False)
 
 	def set_menu_file_interaction_state(self, status: bool):
 		"""

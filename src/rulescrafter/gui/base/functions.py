@@ -17,7 +17,7 @@ def open_link_in_browser(link: str):
 	
 	QDesktopServices.openUrl(QUrl(link))
 
-def select_file(mode: Literal["o", "s"], filters: "Sequence[str] | None" = None) -> SelectedFile | None:
+def select_file(mode: Literal["o", "s"], filters: "Sequence[str] | None" = None, filename: str | None = None) -> SelectedFile | None:
 	"""
 	Select file to interaction.
 
@@ -25,6 +25,8 @@ def select_file(mode: Literal["o", "s"], filters: "Sequence[str] | None" = None)
 	:type mode: Literal["o", "s"]
 	:param filters: Files filters sequence.
 	:type filters: Sequence[str] | None
+	:param filename: Initial file name.
+	:type filename: str | None
 	:return: Selected file data or `None` if cancelled.
 	:rtype: SelectedFile | None
 	"""
@@ -35,9 +37,9 @@ def select_file(mode: Literal["o", "s"], filters: "Sequence[str] | None" = None)
 
 	match mode:
 		case "o":
-			selected_file, used_filter  = QFileDialog.getOpenFileName(filter = filters_query)
+			selected_file, used_filter  = QFileDialog.getOpenFileName(directory = filename, filter = filters_query)
 		case "s":
-			selected_file, used_filter = QFileDialog.getSaveFileName(filter = filters_query)
+			selected_file, used_filter = QFileDialog.getSaveFileName(directory = filename, filter = filters_query)
 
 	file_path: Path = Path(selected_file)
 

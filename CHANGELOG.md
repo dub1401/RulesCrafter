@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 For visual categorization of changes emojis are used in accordance with [gitmoji](https://gitmoji.dev).
 
-## [Unreleased]
+## [0.2.2] - 2026-10-05
+
+### ✨ Added
+- In **Save as** option ruleset version now used as default filename.
+
+### 🎨 Changed
+- Unsaved data indicator now hided only after saving as JSON.
 
 ### 🐛 Fixed
 - Apply button doesn't enabled after tags changing.
