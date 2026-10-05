@@ -43,13 +43,8 @@ class MarkdownBuilder:
 		:rtype: str
 		"""
 
-		rules: tuple[Rule, ...] = tuple(sorted(
-			self.__operator.rules, 
-			key = lambda rule: (rule.number is None, rule.number),
-		))
-
 		content: list[str] = []
-		paragraphs: list[str] = [self.__rule_to_paragraph(rule) for rule in rules]
+		paragraphs: list[str] = [self.__rule_to_paragraph(rule) for rule in self.__operator.rules]
 
 		if self.__operator.name:
 			content.append(f"# {self.__operator.name}")

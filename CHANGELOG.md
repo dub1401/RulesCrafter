@@ -10,6 +10,8 @@ For visual categorization of changes emojis are used in accordance with [gitmoji
 ## [Unreleased]
 
 ### 🐛 Fixed
+- Incorrect rules order in Markdown and PDF.
+- Old date in new versions.
 - Missing tags after reopen rule.
 
 ## [0.2.0] - 2026-10-01

@@ -5,6 +5,7 @@ from os import PathLike
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from packaging.version import Version
 from pydantic import TypeAdapter
 
 from dublib.functions.data import zerotify
@@ -45,9 +46,12 @@ class RulesOperator:
 
 	@property
 	def rules(self) -> tuple[Rule, ...]:
-		"""Rules."""
+		"""Sorted by numbers rules."""
 
-		return tuple(self.__rules.values())
+		return tuple(sorted(
+			self.__rules.values(), 
+			key = lambda rule: Version(rule.number or ""),
+		))
 
 	@property
 	def version(self) -> str | None:
