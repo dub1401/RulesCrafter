@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 For visual categorization of changes emojis are used in accordance with [gitmoji](https://gitmoji.dev).
 
+## [Unreleased]
+
+### ✨ Added
+- Rules now can be groupped by major rule number.
+
 ## [0.2.2] - 2026-10-05
 
 ### ✨ Added

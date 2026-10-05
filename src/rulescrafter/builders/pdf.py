@@ -31,7 +31,7 @@ class PDFBuilder:
 		"""
 
 		file_path = Path(file_path).with_suffix(".pdf")
-		generator = MarkdownPdf(toc_level = 2)
+		generator = MarkdownPdf(toc_level = 3)
 		markdown = MarkdownBuilder(self.__operator)
 
 		if self.__operator.name:

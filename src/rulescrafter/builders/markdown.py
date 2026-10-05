@@ -24,7 +24,7 @@ class MarkdownBuilder:
 		tags: str = ", ".join(f"`{tag}`" for tag in rule.tags)
 		if tags: tags += "\n\n"
 
-		return f"## <a id=\"{rule.id}\"></a>{rule.number}. {rule.header}\n{tags}{rule.description}\n"
+		return f"### <a id=\"{rule.id}\">{rule.number}</a>. {rule.header}\n{tags}{rule.description}\n"
 
 	def __init__(self, operator: "RulesOperator"):
 		"""
@@ -44,7 +44,17 @@ class MarkdownBuilder:
 		"""
 
 		content: list[str] = []
-		paragraphs: list[str] = [self.__rule_to_paragraph(rule) for rule in self.__operator.rules]
+		paragraphs: list[str] = []
+		section: str | None = None
+
+		for rule in self.__operator.rules:
+			new_section: str | None = self.__operator.get_group_name(rule.number)
+
+			if new_section and new_section != section:
+				section = new_section
+				paragraphs.append(f"## {section}\n")
+
+			paragraphs.append(self.__rule_to_paragraph(rule))
 
 		if self.__operator.name:
 			content.append(f"# {self.__operator.name}")

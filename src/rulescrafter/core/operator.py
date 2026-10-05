@@ -152,6 +152,28 @@ class RulesOperator:
 
 		return version
 
+	def get_group_name(self, number: str | None) -> str | None:
+		"""
+		Get group name by number.
+
+		:param number: Rule number.
+		:type number: str | None
+		:return: Group name.
+		:rtype: str | None
+		"""
+
+		if not number:
+			return
+
+		major: int = Version(number).major
+
+		if major not in self.__data.groups:
+			return None
+
+		name: str = self.__data.groups[major]
+
+		return f"{major}. {name}"
+
 	def get_rule(self, rule_id: str) -> Rule:
 		"""
 		Search rule by ID.

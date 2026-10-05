@@ -27,6 +27,20 @@ class RulesList(QWidget):
 		self.__window.rule_editor.select_rule(rule)
 		self.update_rules()
 
+	def __create_rules_section(self, name: str):
+		"""
+		Crate rule section and add it to list.
+
+		:param name: Section name.
+		:type name: str
+		"""
+
+		section = QListWidgetItem(name)
+		section.setBackground(Qt.GlobalColor.lightGray)
+		section.setFlags(section.flags() & ~Qt.ItemFlag.ItemIsSelectable & ~Qt.ItemFlag.ItemIsEnabled)
+
+		self.__rules_list.addItem(section)
+
 	def __select_rule(self):
 		"""Select rule."""
 		
@@ -102,11 +116,18 @@ class RulesList(QWidget):
 		"""
 
 		self.__rules_list.clear()
+		section: str | None = None
 
 		for rule in self.__window.operator.rules:
 			if search and search not in rule.indexable_string:
 				continue
-			
+
+			new_section: str | None = self.__window.operator.get_group_name(rule.number)
+
+			if new_section and new_section != section:
+				self.__create_rules_section(new_section)
+				section = new_section
+
 			item = QListWidgetItem(rule.title)
 			item.setData(Qt.ItemDataRole.UserRole, rule.id)
 			self.__rules_list.addItem(item)
