@@ -144,6 +144,7 @@ class RuleEditor(QWidget):
 		header = QWidget(self)
 
 		self.__tags = MultiSelectComboBox()
+		self.__tags.selectionChanged.connect(lambda: self.__indicate_unsaved_data(True))
 
 		self.__number = QLineEdit(self)
 		self.__number.setPlaceholderText("Number x.y.z")

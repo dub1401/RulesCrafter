@@ -21,7 +21,7 @@ def select_file(mode: Literal["o", "s"], filters: "Sequence[str] | None" = None)
 	"""
 	Select file to interaction.
 
-	:param mode: Interaction mode: *o* – open, **s** – save.
+	:param mode: Interaction mode: **o** – open, **s** – save.
 	:type mode: Literal["o", "s"]
 	:param filters: Files filters sequence.
 	:type filters: Sequence[str] | None

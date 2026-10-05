@@ -48,9 +48,11 @@ class RulesOperator:
 	def rules(self) -> tuple[Rule, ...]:
 		"""Sorted by numbers rules."""
 
+		zero_version = Version("0")
+
 		return tuple(sorted(
 			self.__rules.values(), 
-			key = lambda rule: Version(rule.number or ""),
+			key = lambda rule: Version(rule.number) if rule.number else zero_version,
 		))
 
 	@property
