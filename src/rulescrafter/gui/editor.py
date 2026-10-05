@@ -41,6 +41,17 @@ class RuleEditor(QWidget):
 			self.__number.setStyleSheet("color: red;")
 			self.__number.setToolTip("Номер должен иметь формат x.y.z с опциональными частями и быть уникальным.")
 
+	def __indicate_unsaved_data(self, status: bool):
+		"""
+		Indicate unsaved data.
+
+		:param status: Indication status.
+		:type status: bool
+		"""
+
+		self.__window.set_unsaved_state(status)
+		self.__save_button.setEnabled(status)
+
 	def __remove_rule(self):
 		"""Remove rule."""
 
@@ -99,7 +110,9 @@ class RuleEditor(QWidget):
 
 		self.__save_button = QPushButton(self)
 		self.__save_button.setText("Apply")
+		self.__save_button.setEnabled(False)
 		self.__save_button.clicked.connect(self.save)
+		self.__save_button.clicked.connect(lambda: self.__save_button.setEnabled(False))
 
 		remove_button = QPushButton(self)
 		remove_button.setText("Delete")
@@ -136,6 +149,7 @@ class RuleEditor(QWidget):
 		self.__number.setPlaceholderText("Number x.y.z")
 		self.__number.textChanged.connect(self.__update_save_button_state)
 		self.__number.textChanged.connect(self.__check_number)
+		self.__number.textChanged.connect(lambda: self.__indicate_unsaved_data(True))
 
 		regex = QRegularExpression(r"^\d+(?:\.\d*){0,2}$")
 		validator = QRegularExpressionValidator(regex, self)
@@ -144,6 +158,7 @@ class RuleEditor(QWidget):
 		self.__header = QLineEdit()
 		self.__header.setPlaceholderText("Header")
 		self.__header.textChanged.connect(self.__update_save_button_state)
+		self.__header.textChanged.connect(lambda: self.__indicate_unsaved_data(True))
 
 		footer_layout = QHBoxLayout()
 		footer_layout.setContentsMargins(0, 0, 0, 0)
@@ -162,6 +177,7 @@ class RuleEditor(QWidget):
 		self.__description = QTextEdit()
 		self.__description.setPlaceholderText("Description")
 		self.__description.textChanged.connect(self.__update_save_button_state)
+		self.__description.textChanged.connect(lambda: self.__indicate_unsaved_data(True))
 
 		rule_editor_layout = QVBoxLayout()
 		rule_editor_layout.addWidget(self.__build_header())
@@ -222,6 +238,8 @@ class RuleEditor(QWidget):
 		
 		self.__update()
 		self.__tags.setCurrentText(self.__rule.tags or "")
+
+		self.__indicate_unsaved_data(status = False)
 		
 	def update_tags(self):
 		"""Update tags selector."""

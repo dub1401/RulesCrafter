@@ -234,8 +234,9 @@ class MainWindow(QMainWindow):
 		super().__init__()
 		
 		self.__operator: RulesOperator | None = None
+		self.__window_title: str = "RulesCrafter"
 
-		self.setWindowTitle("RulesCrafter")
+		self.setWindowTitle(self.__window_title)
 		self.setMinimumSize(QSize(1280, 720))
 
 		self.__build()
@@ -266,6 +267,7 @@ class MainWindow(QMainWindow):
 			self.save_file_as()
 		else:
 			self.__operator.save()
+			self.set_unsaved_state(False)
 
 	def save_file_as(self):
 		"""Save file as."""
@@ -305,6 +307,8 @@ class MainWindow(QMainWindow):
 				self.__operator.set_file_path(file_path)
 				self.__operator.save()
 
+		self.set_unsaved_state(False)
+
 	def set_menu_file_interaction_state(self, status: bool):
 		"""
 		Set menu file interaction state.
@@ -322,3 +326,16 @@ class MainWindow(QMainWindow):
 
 		for element in elements:
 			element(status)
+
+	def set_unsaved_state(self, status: bool):
+		"""
+		Set condition: is data has unsaved changes.
+
+		:param status: Condition value.
+		:type status: bool
+		"""
+
+		if status:
+			self.setWindowTitle(self.__window_title + " *")
+		else:
+			self.setWindowTitle(self.__window_title)

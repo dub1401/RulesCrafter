@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 For visual categorization of changes emojis are used in accordance with [gitmoji](https://gitmoji.dev).
 
-## [Unreleased]
+## [0.2.1] - 2026-10-05
+
+### ✨ Added
+- In editor apply button disabled if no changes.
+- Unsaved data indicator in window title.
 
 ### 🐛 Fixed
 - When file selection cancelled application crashes.
