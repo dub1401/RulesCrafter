@@ -10,6 +10,7 @@ For visual categorization of changes emojis are used in accordance with [gitmoji
 ## [Unreleased]
 
 ### 🐛 Fixed
+- When file selection cancelled application crashes.
 - Incorrect rules order in Markdown and PDF.
 - Old date in new versions.
 - Missing tags after reopen rule.

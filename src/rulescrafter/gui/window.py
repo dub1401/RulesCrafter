@@ -1,10 +1,8 @@
-from pathlib import Path
 from typing import TYPE_CHECKING, cast
 
-from PyQt6.QtCore import QSize, Qt, QUrl
-from PyQt6.QtGui import QAction, QDesktopServices
+from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import (
-	QFileDialog,
 	QHBoxLayout,
 	QMainWindow,
 	QMenu,
@@ -17,6 +15,7 @@ from PyQt6.QtWidgets import (
 from .. import builders
 from ..core.operator import RulesOperator
 from . import icons
+from .base.functions import open_link_in_browser, select_file
 from .dialogs.dumper import VersionDumper
 from .dialogs.metainfo import MetainfoEditor
 from .dialogs.tagger import TagsEditor
@@ -25,6 +24,7 @@ from .list import RulesList
 
 if TYPE_CHECKING:
 	from collections.abc import Callable
+	from pathlib import Path
 
 class MainWindow(QMainWindow):
 	"""Main window."""
@@ -60,21 +60,6 @@ class MainWindow(QMainWindow):
 	#==========================================================================================#
 	# >>>>> PRIVATE METHODS <<<<< #
 	#==========================================================================================#
-
-	def __extract_file_filter_extension(self, filter_string: str) -> str:
-		"""
-		Extract file filter extension.
-
-		:param filter_string: File filter.
-		:type filter_string: str
-		:return: Filter extension.
-		:rtype: str
-		"""
-
-		parts: list[str] = filter_string.split("(", maxsplit = 1)
-		extensions: list[str] = parts[-1].rstrip(")").lstrip("*").split(" ")
-
-		return extensions[0]
 
 	def __open_worker(self, file: str | None = None):
 		"""
@@ -219,7 +204,7 @@ class MainWindow(QMainWindow):
 
 		github_action = QAction("GitHub", self)
 		github_action.setIcon(icons.GITHUB)
-		github_action.triggered.connect(lambda: self.open_link_in_browser("https://github.com/dub1401/RulesCrafter"))
+		github_action.triggered.connect(lambda: open_link_in_browser("https://github.com/dub1401/RulesCrafter"))
 
 		about_menu.addAction(github_action)
 
@@ -266,15 +251,10 @@ class MainWindow(QMainWindow):
 	def open_file(self):
 		"""Open file."""
 
-		file_path, _  = QFileDialog.getOpenFileName(filter = "JSON (*.json)")
+		file = select_file("o", filters = "JSON (*.json)")
 
-		if file_path:
-			self.__open_worker(file_path)
-
-	def open_link_in_browser(self, link: str):
-		"""Open link in browser."""
-		
-		QDesktopServices.openUrl(QUrl(link))
+		if file:
+			self.__open_worker(file.path.as_posix())
 
 	def save_file(self):
 		"""Save file."""
@@ -299,14 +279,18 @@ class MainWindow(QMainWindow):
 			"Markdown (*.md)",
 			"PDF (*.pdf)",
 		)
-		file_path, selected_filter  = QFileDialog.getSaveFileName(filter = ";;".join(filters))
-		extension: str = self.__extract_file_filter_extension(selected_filter)
-		file: Path = Path(file_path)
+		file = select_file("s", filters)
 
-		if not file.suffix:
-			file = file.with_suffix(extension)
+		if not file:
+			return
 
-		match file.suffix:
+		file_path: Path = file.path
+		suffixes = file.filter_suffixes
+
+		if not file_path.suffix and suffixes:
+			file_path = file_path.with_suffix(suffixes[0])
+
+		match file_path.suffix:
 
 			case ".md":
 				builders.MarkdownBuilder(self.__operator).dump_to_file(file_path)
