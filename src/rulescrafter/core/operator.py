@@ -70,6 +70,24 @@ class RulesOperator:
 
 		return value
 
+	def __strip_version_index(self, version: str) -> str:
+		"""
+		Strip version index if exists.
+
+		:param version: Version.
+		:type version: str
+		:return: Version without index.
+		:rtype: str
+		"""
+
+		if version.count(".") == 3:
+			parts: list[str] = version.split(".")
+			parts.pop()
+
+			return ".".join(parts)
+
+		return version
+
 	def __init__(self, file: PathLike[str] | str | None = None):
 		"""
 		Rules operator.
@@ -109,13 +127,12 @@ class RulesOperator:
 		"""
 
 		version: str | None = self.__data.version
+		date: str = datetime.now().strftime("%Y.%m.%d")
 
-		if not version:
-			return datetime.now().strftime("%Y.%m.%d")
+		if not version or self.__strip_version_index(version) != date:
+			return date
 
-		points_count: int = version.count(".")
-
-		match points_count:
+		match version.count("."):
 
 			case 2:
 				version += ".1"
