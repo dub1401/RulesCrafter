@@ -37,6 +37,7 @@ class GroupsEditor(QDialog):
 			self.__window.operator.set_group_name(group, name)
 
 		self.__window.set_unsaved_state(True)
+		self.__window.rules_list.update_rules()
 		self.close()
 
 	def __build(self):
