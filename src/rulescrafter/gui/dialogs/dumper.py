@@ -22,6 +22,7 @@ class VersionDumper(QDialog):
 
 		version: str = self.__new_version.text()
 		self.__window.operator.set_version(version)
+		self.__window.set_unsaved_state(True)
 		self.close()
 
 	def __build_buttons(self) -> QWidget:

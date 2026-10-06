@@ -18,6 +18,7 @@ class TagsEditor(QDialog):
 
 		tags: tuple[str, ...] = tuple(tag.strip() for tag in self.__tags_editor.toPlainText().split(","))
 		self.__window.operator.set_allowed_tags(tags)
+		self.__window.set_unsaved_state(True)
 		self.close()
 		self.__window.rule_editor.update_tags()
 

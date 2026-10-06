@@ -19,6 +19,7 @@ class MetainfoEditor(QDialog):
 
 		self.__window.operator.rename(self.__name.text())
 		self.__window.operator.set_description(self.__description.toPlainText())
+		self.__window.set_unsaved_state(True)
 		self.close()
 
 	def __build(self):
