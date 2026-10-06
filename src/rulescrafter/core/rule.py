@@ -1,11 +1,15 @@
 from typing import TYPE_CHECKING
 
+from packaging.version import Version
+
 from .models import RuleModel
 
 if TYPE_CHECKING:
 	from collections.abc import Sequence
 
 	from .operator import RulesOperator
+
+_Number = Version
 
 class Rule:
 	"""Rule."""
@@ -49,6 +53,12 @@ class Rule:
 		"""Rule number."""
 
 		return self.__model.number
+
+	@property
+	def parsed_number(self) -> _Number | None:
+		"""Rule parsed number."""
+
+		return _Number(self.__model.number) if self.__model.number else None
 
 	@property
 	def tags(self) -> tuple[str, ...]:

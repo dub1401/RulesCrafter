@@ -18,6 +18,7 @@ from ..core.operator import RulesOperator
 from . import icons
 from .base.functions import open_link_in_browser, select_file
 from .dialogs.dumper import VersionDumper
+from .dialogs.groups import GroupsEditor
 from .dialogs.metainfo import MetainfoEditor
 from .dialogs.tagger import TagsEditor
 from .editor import RuleEditor
@@ -185,6 +186,11 @@ class MainWindow(QMainWindow):
 		metainfo_editor.setShortcut("Ctrl+E")
 		metainfo_editor.triggered.connect(self.__metainfo_editor.run_editor)
 
+		groups_action = QAction("Groups", self)
+		groups_action.setIcon(icons.GROUPS)
+		groups_action.setShortcut("Ctrl+G")
+		groups_action.triggered.connect(self.__groups_editor.run_editor)
+
 		dump_version_action = QAction("Dump version", self)
 		dump_version_action.setIcon(icons.DUMP)
 		dump_version_action.setShortcut("Ctrl+D")
@@ -196,6 +202,7 @@ class MainWindow(QMainWindow):
 		tags_action.triggered.connect(self.__tags_editor.run_editor)
 		
 		self.__edit_menu.addAction(metainfo_editor)
+		self.__edit_menu.addAction(groups_action)
 		self.__edit_menu.addAction(dump_version_action)
 		self.__edit_menu.addAction(tags_action)
 
@@ -219,6 +226,7 @@ class MainWindow(QMainWindow):
 		self.setCentralWidget(self.__stacked_widget)
 
 		self.__metainfo_editor = MetainfoEditor(self)
+		self.__groups_editor = GroupsEditor(self)
 		self.__tags_editor = TagsEditor(self)
 		self.__version_dumper = VersionDumper(self)
 

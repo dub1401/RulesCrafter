@@ -11,6 +11,7 @@ For visual categorization of changes emojis are used in accordance with [gitmoji
 
 ### ✨ Added
 - Rules now can be groupped by major rule number.
+- Dialog to edit groups names.
 
 ### 🐛 Fixed
 - Unsaved data idicator missing after metadata, tags or version editing.

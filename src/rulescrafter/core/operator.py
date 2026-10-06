@@ -33,6 +33,12 @@ class RulesOperator:
 		return self.__data.description
 
 	@property
+	def groups(self) -> set[int]:
+		"""Groups numbers."""
+
+		return {parsed_number.major for rule in self.__rules.values() if (parsed_number := rule.parsed_number)}
+
+	@property
 	def name(self) -> str | None:
 		"""Ruleset name."""
 
@@ -110,6 +116,28 @@ class RulesOperator:
 		self.__data_adapter: TypeAdapter[RulesFileModel] = TypeAdapter(RulesFileModel)
 		self.__data: RulesFileModel = self.load()
 
+	def build_group_name_with_number(self, number: str | None) -> str | None:
+		"""
+		Build group name with number.
+
+		:param number: Rule number.
+		:type number: str | None
+		:return: Group name in `{GROUP}. {NAME}` format.
+		:rtype: str | None
+		"""
+
+		if not number:
+			return
+
+		major: int = Version(number).major
+
+		if major not in self.__data.groups:
+			return None
+
+		name: str = self.__data.groups[major] or ""
+
+		return f"{major}. {name}"
+
 	def create_rule(self) -> Rule:
 		"""
 		Create rule.
@@ -152,27 +180,20 @@ class RulesOperator:
 
 		return version
 
-	def get_group_name(self, number: str | None) -> str | None:
+	def get_group_name(self, group: int | None) -> str | None:
 		"""
-		Get group name by number.
+		Get group name.
 
-		:param number: Rule number.
-		:type number: str | None
+		:param group: Group.
+		:type group: int | None
 		:return: Group name.
 		:rtype: str | None
 		"""
 
-		if not number:
+		if not group:
 			return
 
-		major: int = Version(number).major
-
-		if major not in self.__data.groups:
-			return None
-
-		name: str = self.__data.groups[major]
-
-		return f"{major}. {name}"
+		return self.__data.groups.get(group)
 
 	def get_rule(self, rule_id: str) -> Rule:
 		"""
@@ -275,6 +296,18 @@ class RulesOperator:
 		"""
 
 		self.__data.description = zerotify(description)
+
+	def set_group_name(self, group: int, name: str | None):
+		"""
+		Set group name.
+
+		:param group: Group.
+		:type group: int
+		:param name: Group name.
+		:type name: str | None
+		"""
+
+		self.__data.groups[group] = name
 
 	def set_file_path(self, file: PathLike[str] | str):
 		"""

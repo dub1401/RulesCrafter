@@ -122,7 +122,7 @@ class RulesList(QWidget):
 			if search and search not in rule.indexable_string:
 				continue
 
-			new_section: str | None = self.__window.operator.get_group_name(rule.number)
+			new_section: str | None = self.__window.operator.build_group_name_with_number(rule.number)
 
 			if new_section and new_section != section:
 				self.__create_rules_section(new_section)

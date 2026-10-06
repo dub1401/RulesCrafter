@@ -18,5 +18,5 @@ class RulesFileModel(BaseModel):
 	name: str | None = None
 	description: str | None = None
 	allowed_tags: Sequence[str] = ()
-	groups: dict[int, str] = {}
+	groups: dict[int, str | None] = {}
 	rules: Sequence[RuleModel] = ()

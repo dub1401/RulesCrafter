@@ -48,7 +48,7 @@ class MarkdownBuilder:
 		section: str | None = None
 
 		for rule in self.__operator.rules:
-			new_section: str | None = self.__operator.get_group_name(rule.number)
+			new_section: str | None = self.__operator.build_group_name_with_number(rule.number)
 
 			if new_section and new_section != section:
 				section = new_section
