@@ -12,11 +12,11 @@ from PyQt6.QtWidgets import (
 )
 from pyqt6_multiselect_combobox import MultiSelectComboBox
 
-from .copyable_label import CopyableLabel
+from .components.copyable_label import CopyableLabel
 
 if TYPE_CHECKING:
-	from ..core.rule import Rule
-	from .main_window import MainWindow
+	from ...core.rule import Rule
+	from ..main_window import MainWindow
 
 class RuleEditor(QWidget):
 	"""Rules list."""
@@ -58,7 +58,7 @@ class RuleEditor(QWidget):
 		if not self.__rule:
 			return
 
-		self.__window.rules_list.remove_rule(self.__rule.id)
+		self.__window.widgets.rules_list.remove_rule(self.__rule.id)
 		self.close_editor()
 
 	def __update(self):
@@ -224,7 +224,7 @@ class RuleEditor(QWidget):
 		self.__rule.set_description(self.__description.toPlainText())
 		self.__rule.set_tags(self.__tags.currentData())
 
-		self.__window.rules_list.update_rules()
+		self.__window.widgets.rules_list.update_rules()
 
 	def select_rule(self, rule: "Rule"):
 		"""

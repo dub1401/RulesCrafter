@@ -16,15 +16,12 @@ from PyQt6.QtWidgets import (
 from ... import builders
 from ...core import exceptions
 from ...core.operator import RulesOperator
-from .. import icons
+from .. import dialogs, icons
 from ..base.functions import open_link_in_browser, select_file
-from ..dialogs.dumper import VersionDumper
-from ..dialogs.groups import GroupsEditor
-from ..dialogs.metainfo import MetainfoEditor
-from ..dialogs.tagger import TagsEditor
-from ..editor import RuleEditor
-from ..list import RulesList
+from ..widgets.rule_editor import RuleEditor
+from ..widgets.rules_list import RulesList
 from .enums import StacksIndexes
+from .structs import MainWindowWidgets
 
 if TYPE_CHECKING:
 	from os import PathLike
@@ -51,21 +48,14 @@ class MainWindow(QMainWindow):
 
 		return self.__operator
 
-	#==========================================================================================#
-	# >>>>> WIDGETS <<<<< #
-	#==========================================================================================#
-
 	@property
-	def rule_editor(self) -> RuleEditor:
-		"""Rule editor."""
+	def widgets(self) -> MainWindowWidgets:
+		"""Main window widgets."""
 
-		return self.__rule_editor
-
-	@property
-	def rules_list(self) -> RulesList:
-		"""Rules list."""
-
-		return self.__rules_list
+		return MainWindowWidgets(
+			rules_list = self.__rules_list,
+			rule_editor = self.__rule_editor,
+		)
 
 	#==========================================================================================#
 	# >>>>> PRIVATE METHODS <<<<< #
@@ -277,10 +267,10 @@ class MainWindow(QMainWindow):
 
 		self.setCentralWidget(self.__stacked_widget)
 
-		self.__metainfo_editor = MetainfoEditor(self)
-		self.__groups_editor = GroupsEditor(self)
-		self.__tags_editor = TagsEditor(self)
-		self.__version_dumper = VersionDumper(self)
+		self.__metainfo_editor = dialogs.MetainfoEditor(self)
+		self.__groups_editor = dialogs.GroupsEditor(self)
+		self.__tags_editor = dialogs.TagsEditor(self)
+		self.__version_dumper = dialogs.VersionDumper(self)
 
 		self.__build_menu()
 

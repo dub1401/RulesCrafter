@@ -20,7 +20,7 @@ class TagsEditor(QDialog):
 		self.__window.operator.set_allowed_tags(tags)
 		self.__window.set_unsaved_state(True)
 		self.close()
-		self.__window.rule_editor.update_tags()
+		self.__window.widgets.rule_editor.update_tags()
 
 	def __build(self):
 		"""Build interface."""

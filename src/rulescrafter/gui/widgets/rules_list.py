@@ -11,7 +11,7 @@ from PyQt6.QtWidgets import (
 )
 
 if TYPE_CHECKING:
-	from .main_window import MainWindow
+	from ..main_window import MainWindow
 
 class RulesList(QWidget):
 	"""Rules list."""
@@ -24,7 +24,7 @@ class RulesList(QWidget):
 		"""Create rule."""
 
 		rule = self.__window.operator.create_rule()
-		self.__window.rule_editor.select_rule(rule)
+		self.__window.widgets.rule_editor.select_rule(rule)
 		self.update_rules()
 
 	def __create_rules_section(self, name: str):
@@ -50,7 +50,7 @@ class RulesList(QWidget):
 		if item:
 			rule_id: str = item.data(Qt.ItemDataRole.UserRole)
 			rule = self.__window.operator.get_rule(rule_id)
-			self.__window.rule_editor.select_rule(rule)
+			self.__window.widgets.rule_editor.select_rule(rule)
 
 	#==========================================================================================#
 	# >>>>> PRIVATE INTERFACE BUILDERS <<<<< #
