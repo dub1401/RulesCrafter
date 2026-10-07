@@ -16,7 +16,7 @@ from .copyable_label import CopyableLabel
 
 if TYPE_CHECKING:
 	from ..core.rule import Rule
-	from .window import MainWindow
+	from .main_window import MainWindow
 
 class RuleEditor(QWidget):
 	"""Rules list."""

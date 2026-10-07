@@ -12,7 +12,7 @@ from PyQt6.QtWidgets import (
 from dublib.functions.data import zerotify
 
 if TYPE_CHECKING:
-	from ..window import MainWindow
+	from ..main_window import MainWindow
 
 class GroupsEditor(QDialog):
 	"""Groups editor window."""

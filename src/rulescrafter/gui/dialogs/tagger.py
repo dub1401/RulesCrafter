@@ -8,7 +8,7 @@ from PyQt6.QtWidgets import (
 )
 
 if TYPE_CHECKING:
-	from ..window import MainWindow
+	from ..main_window import MainWindow
 
 class TagsEditor(QDialog):
 	"""Tags editor window."""

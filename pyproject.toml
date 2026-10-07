@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "RulesCrafter"
-version = "0.3.0"
+version = "0.4.0"
 description = "Rules crafting system."
 readme = "README.md"
 authors = [

@@ -1,3 +1,4 @@
+gnureadline
 maturin
 orjson
 pydantic_core

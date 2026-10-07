@@ -9,6 +9,12 @@ For visual categorization of changes emojis are used in accordance with [gitmoji
 
 ## [Unreleased]
 
+### 🎨 Changed
+- Minimal window size is 640x480.
+- Unsaved data indicator replaced to left side of window title.
+
+### 🐛 Fixed
+- No unsaved data indicator after new file creation.
 
 ## [0.3.0] - 2026-10-07
 
