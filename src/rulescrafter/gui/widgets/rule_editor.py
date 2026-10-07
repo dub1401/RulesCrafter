@@ -144,13 +144,11 @@ class RuleEditor(BaseMainWidget):
 		header = QWidget(self)
 
 		self.__tags = MultiSelectComboBox()
-		self.__tags.selectionChanged.connect(lambda: self.__indicate_unsaved_data(True))
 
 		self.__number = QLineEdit(self)
 		self.__number.setPlaceholderText("Number x.y.z")
 		self.__number.textChanged.connect(self.__update_save_button_state)
 		self.__number.textChanged.connect(self.__check_number)
-		self.__number.textChanged.connect(lambda: self.__indicate_unsaved_data(True))
 
 		regex = QRegularExpression(r"^\d+(?:\.\d*){0,2}$")
 		validator = QRegularExpressionValidator(regex, self)
@@ -159,7 +157,6 @@ class RuleEditor(BaseMainWidget):
 		self.__header = QLineEdit()
 		self.__header.setPlaceholderText("Header")
 		self.__header.textChanged.connect(self.__update_save_button_state)
-		self.__header.textChanged.connect(lambda: self.__indicate_unsaved_data(True))
 
 		footer_layout = QHBoxLayout()
 		footer_layout.setContentsMargins(0, 0, 0, 0)
@@ -182,7 +179,6 @@ class RuleEditor(BaseMainWidget):
 		self.__description = QTextEdit()
 		self.__description.setPlaceholderText("Description")
 		self.__description.textChanged.connect(self.__update_save_button_state)
-		self.__description.textChanged.connect(lambda: self.__indicate_unsaved_data(True))
 
 		rule_editor_layout = QVBoxLayout()
 		rule_editor_layout.addWidget(self.__build_header())
@@ -218,7 +214,7 @@ class RuleEditor(BaseMainWidget):
 		self.__rule.set_header(self.__header.text())
 		self.__rule.set_description(self.__description.toPlainText())
 		self.__rule.set_tags(self.__tags.currentData())
-
+		self.__indicate_unsaved_data(True)
 		self.main_window.widgets.rules_list.update_rules()
 
 	def select_rule(self, rule: "Rule"):
