@@ -36,6 +36,12 @@ class MainWindow(QMainWindow):
 	#==========================================================================================#
 
 	@property
+	def is_auto_numbering_enabled(self) -> bool:
+		"""Condition: is auto-numbering enabled."""
+
+		return self.__auto_numbering_action.isChecked()
+
+	@property
 	def operator(self) -> RulesOperator:
 		"""
 		Rules operator.
@@ -187,11 +193,11 @@ class MainWindow(QMainWindow):
 
 		menu: QMenu = cast("QMenu", menu_bar.addMenu("Tools"))
 
-		auto_numbering_action: QAction = QAction("Auto-numbering", self)
-		auto_numbering_action.setCheckable(True)
-		auto_numbering_action.setChecked(True)
+		self.__auto_numbering_action: QAction = QAction("Auto-numbering", self)
+		self.__auto_numbering_action.setCheckable(True)
+		self.__auto_numbering_action.setChecked(True)
 
-		menu.addAction(auto_numbering_action)
+		menu.addAction(self.__auto_numbering_action)
 
 	def __build_menu(self):
 		"""Build menu."""

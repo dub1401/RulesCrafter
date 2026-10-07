@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 	from .operator import RulesOperator
 
-_Number = Version
+Number = Version
 
 class Rule:
 	"""Rule."""
@@ -55,10 +55,10 @@ class Rule:
 		return self.__model.number
 
 	@property
-	def parsed_number(self) -> _Number | None:
+	def parsed_number(self) -> Number | None:
 		"""Rule parsed number."""
 
-		return _Number(self.__model.number) if self.__model.number else None
+		return Number(self.__model.number) if self.__model.number else None
 
 	@property
 	def tags(self) -> tuple[str, ...]:

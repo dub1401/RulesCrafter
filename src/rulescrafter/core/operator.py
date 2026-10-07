@@ -3,7 +3,7 @@ import uuid
 from datetime import datetime
 from os import PathLike
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal, overload
 
 from packaging.version import Version
 from pydantic import TypeAdapter
@@ -12,7 +12,7 @@ from dublib.functions.data import zerotify
 from dublib.functions.filesystem import json
 
 from .models import RuleModel, RulesFileModel
-from .rule import Rule
+from .rule import Number, Rule
 
 if TYPE_CHECKING:
 	from collections.abc import Sequence
@@ -81,6 +81,27 @@ class RulesOperator:
 			value = str(uuid.uuid4())
 
 		return value
+
+	@overload
+	def __increment_number(self, number: Number, parse: Literal[True] = True) -> Number: ...
+	@overload
+	def __increment_number(self, number: Number, parse: Literal[False]) -> str: ...
+
+	def __increment_number(self, number: Number, parse: bool = True) -> Number | str:
+		"""
+		Increment number.
+
+		:param number: Parent number.
+		:type number: Number
+		:return: Incremented value.
+		:rtype: Number
+		"""
+
+		release: list[int] = list(number.release)
+		release[-1] += 1
+		new_number: str = ".".join(str(element) for element in release)
+
+		return Number(new_number) if parse else new_number
 
 	def __strip_version_index(self, version: str) -> str:
 		"""
@@ -151,6 +172,36 @@ class RulesOperator:
 		self.__rules[identifier] = rule
 
 		return rule
+
+	def generate_number(self, previous: Rule | None = None) -> str:
+		"""
+		Generate rule number.
+
+		:param parent: Previous rule. If given number will be generated from max number of a branch.
+		:type parent: Rule | None
+		:return: New rule number in `x.y.z` format.
+		:rtype: str
+		"""
+
+		if not self.__rules:
+			return "1"
+
+		if previous:
+			parsed_number: Number | None = previous.parsed_number
+
+			if parsed_number:
+				template: str = ".".join(str(element) for element in parsed_number.release[:-1])
+
+				numbers: tuple[Number, ...] = tuple(sorted(parsed_number for element in self.__rules.values() if (parsed_number := element.parsed_number)))
+				numbers = tuple(filter(lambda number: str(number).startswith(template), numbers))
+
+				if numbers:
+					max_number: Number = max(numbers)
+					return self.__increment_number(max_number, parse = False)
+
+		max_number: Number = max(parsed_number for element in self.__rules.values() if (parsed_number := element.parsed_number))
+		
+		return self.__increment_number(max_number, parse = False)
 
 	def generate_version(self) -> str:
 		"""

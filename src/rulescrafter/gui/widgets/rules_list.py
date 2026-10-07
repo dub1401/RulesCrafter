@@ -1,3 +1,5 @@
+from typing import TYPE_CHECKING
+
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
 	QLineEdit,
@@ -9,8 +11,26 @@ from PyQt6.QtWidgets import (
 
 from ..base.main_widget import BaseMainWidget
 
+if TYPE_CHECKING:
+	from ...core.rule import Rule
+
 class RulesList(BaseMainWidget):
 	"""Rules list."""
+
+	#==========================================================================================#
+	# >>>>> PROPERTIES <<<<< #
+	#==========================================================================================#
+
+	@property
+	def selected_rule(self) -> "Rule | None":
+		"""Selected rule."""
+
+		current_row: int = self.__rules_list.currentRow()
+		item = self.__rules_list.item(current_row)
+
+		if item:
+			rule_id: str = item.data(Qt.ItemDataRole.UserRole)
+			return self.main_window.operator.get_rule(rule_id)
 
 	#==========================================================================================#
 	# >>>>> PRIVATE METHODS <<<<< #
@@ -20,6 +40,11 @@ class RulesList(BaseMainWidget):
 		"""Create rule."""
 
 		rule = self.main_window.operator.create_rule()
+
+		if self.main_window.is_auto_numbering_enabled:
+			number: str = self.main_window.operator.generate_number(self.selected_rule)
+			rule.set_number(number)
+
 		self.main_window.widgets.rule_editor.select_rule(rule)
 		self.update_rules()
 
@@ -40,13 +65,10 @@ class RulesList(BaseMainWidget):
 	def __select_rule(self):
 		"""Select rule."""
 		
-		current_row: int = self.__rules_list.currentRow()
-		item = self.__rules_list.item(current_row)
+		selected_rule: Rule | None = self.selected_rule
 
-		if item:
-			rule_id: str = item.data(Qt.ItemDataRole.UserRole)
-			rule = self.main_window.operator.get_rule(rule_id)
-			self.main_window.widgets.rule_editor.select_rule(rule)
+		if selected_rule:
+			self.main_window.widgets.rule_editor.select_rule(selected_rule)
 
 	#==========================================================================================#
 	# >>>>> OVERRIDABLE METHODS <<<<< #
