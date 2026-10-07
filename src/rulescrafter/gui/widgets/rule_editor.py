@@ -12,13 +12,13 @@ from PyQt6.QtWidgets import (
 )
 from pyqt6_multiselect_combobox import MultiSelectComboBox
 
+from ..base.main_widget import BaseMainWidget
 from .components.copyable_label import CopyableLabel
 
 if TYPE_CHECKING:
 	from ...core.rule import Rule
-	from ..main_window import MainWindow
 
-class RuleEditor(QWidget):
+class RuleEditor(BaseMainWidget):
 	"""Rules list."""
 
 	#==========================================================================================#
@@ -33,7 +33,7 @@ class RuleEditor(QWidget):
 
 		number: str = self.__number.text().rstrip()
 
-		if not number or number == self.__rule.number or self.__window.operator.is_number_correct(number):
+		if not number or number == self.__rule.number or self.main_window.operator.is_number_correct(number):
 			self.__number.setStyleSheet(None)
 			self.__number.setToolTip(None)
 
@@ -49,7 +49,7 @@ class RuleEditor(QWidget):
 		:type status: bool
 		"""
 
-		self.__window.set_unsaved_state(status)
+		self.main_window.set_unsaved_state(status)
 		self.__save_button.setEnabled(status)
 
 	def __remove_rule(self):
@@ -58,7 +58,7 @@ class RuleEditor(QWidget):
 		if not self.__rule:
 			return
 
-		self.__window.widgets.rules_list.remove_rule(self.__rule.id)
+		self.main_window.widgets.rules_list.remove_rule(self.__rule.id)
 		self.close_editor()
 
 	def __update(self):
@@ -172,7 +172,11 @@ class RuleEditor(QWidget):
 
 		return header
 
-	def __build(self):
+	#==========================================================================================#
+	# >>>>> OVERRIDABLE METHODS <<<<< #
+	#==========================================================================================#
+
+	def _build(self):
 		"""Build interface."""
 
 		self.__description = QTextEdit()
@@ -187,25 +191,16 @@ class RuleEditor(QWidget):
 
 		self.setLayout(rule_editor_layout)
 
+	def _post_init(self):
+		"""Execute after instance initialization."""
+
+		self.__rule: Rule | None = None
+		
+		self.hide()
+
 	#==========================================================================================#
 	# >>>>> PUBLIC METHODS <<<<< #
 	#==========================================================================================#
-
-	def __init__(self, parent: "MainWindow"):
-		"""
-		Rules list.
-
-		:param parent: Parent widget.
-		:type parent: MainWindow
-		"""
-
-		super().__init__(parent)
-
-		self.__window: MainWindow = parent
-		self.__rule: Rule | None = None
-
-		self.hide()
-		self.__build()
 
 	def close_editor(self):
 		"""Close editor."""
@@ -224,7 +219,7 @@ class RuleEditor(QWidget):
 		self.__rule.set_description(self.__description.toPlainText())
 		self.__rule.set_tags(self.__tags.currentData())
 
-		self.__window.widgets.rules_list.update_rules()
+		self.main_window.widgets.rules_list.update_rules()
 
 	def select_rule(self, rule: "Rule"):
 		"""
@@ -245,10 +240,10 @@ class RuleEditor(QWidget):
 	def update_tags(self):
 		"""Update tags selector."""
 
-		if self.__window.operator is None:
+		if self.main_window.operator is None:
 			return
 
-		tags: list[str] = list(self.__window.operator.allowed_tags)
+		tags: list[str] = list(self.main_window.operator.allowed_tags)
 
 		if tags:
 			self.__tags.setEnabled(True)

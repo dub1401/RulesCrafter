@@ -1,5 +1,3 @@
-from typing import TYPE_CHECKING
-
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
 	QLineEdit,
@@ -7,13 +5,11 @@ from PyQt6.QtWidgets import (
 	QListWidgetItem,
 	QPushButton,
 	QVBoxLayout,
-	QWidget,
 )
 
-if TYPE_CHECKING:
-	from ..main_window import MainWindow
+from ..base.main_widget import BaseMainWidget
 
-class RulesList(QWidget):
+class RulesList(BaseMainWidget):
 	"""Rules list."""
 
 	#==========================================================================================#
@@ -23,8 +19,8 @@ class RulesList(QWidget):
 	def __create_rule(self):
 		"""Create rule."""
 
-		rule = self.__window.operator.create_rule()
-		self.__window.widgets.rule_editor.select_rule(rule)
+		rule = self.main_window.operator.create_rule()
+		self.main_window.widgets.rule_editor.select_rule(rule)
 		self.update_rules()
 
 	def __create_rules_section(self, name: str):
@@ -49,14 +45,14 @@ class RulesList(QWidget):
 
 		if item:
 			rule_id: str = item.data(Qt.ItemDataRole.UserRole)
-			rule = self.__window.operator.get_rule(rule_id)
-			self.__window.widgets.rule_editor.select_rule(rule)
+			rule = self.main_window.operator.get_rule(rule_id)
+			self.main_window.widgets.rule_editor.select_rule(rule)
 
 	#==========================================================================================#
-	# >>>>> PRIVATE INTERFACE BUILDERS <<<<< #
+	# >>>>> OVERRIDABLE METHODS <<<<< #
 	#==========================================================================================#
 
-	def __build(self):
+	def _build(self):
 		"""Build interface."""
 
 		search_input = QLineEdit()
@@ -82,20 +78,6 @@ class RulesList(QWidget):
 	# >>>>> PUBLIC METHODS <<<<< #
 	#==========================================================================================#
 
-	def __init__(self, parent: "MainWindow"):
-		"""
-		Rules list.
-
-		:param parent: Parent widget.
-		:type parent: MainWindow
-		"""
-
-		super().__init__(parent)
-
-		self.__window: MainWindow = parent
-
-		self.__build()
-
 	def remove_rule(self, rule_id: str):
 		"""
 		Remove rule.
@@ -104,7 +86,7 @@ class RulesList(QWidget):
 		:type rule_id: str
 		"""
 
-		self.__window.operator.remove_rule(rule_id)
+		self.main_window.operator.remove_rule(rule_id)
 		self.update_rules()
 		
 	def update_rules(self, search: str | None = None):
@@ -118,11 +100,11 @@ class RulesList(QWidget):
 		self.__rules_list.clear()
 		section: str | None = None
 
-		for rule in self.__window.operator.rules:
+		for rule in self.main_window.operator.rules:
 			if search and search not in rule.indexable_string:
 				continue
 
-			new_section: str | None = self.__window.operator.build_group_name_with_number(rule.number)
+			new_section: str | None = self.main_window.operator.build_group_name_with_number(rule.number)
 
 			if new_section and new_section != section:
 				self.__create_rules_section(new_section)
