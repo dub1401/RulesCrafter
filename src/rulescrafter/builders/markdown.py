@@ -24,7 +24,9 @@ class MarkdownBuilder:
 		tags: str = ", ".join(f"`{tag}`" for tag in rule.tags)
 		if tags: tags += "\n\n"
 
-		return f"### <a id=\"{rule.id}\">{rule.number}</a>. {rule.header}\n{tags}{rule.description}\n"
+		description: str = rule.description.replace("\n", "\n\n") if rule.description else ""
+
+		return f"### <a id=\"{rule.id}\">{rule.number}</a>. {rule.header}\n{tags}{description}\n"
 
 	def __init__(self, operator: "RulesOperator"):
 		"""

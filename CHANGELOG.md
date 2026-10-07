@@ -9,12 +9,16 @@ For visual categorization of changes emojis are used in accordance with [gitmoji
 
 ## [Unreleased]
 
+
+## [0.3.0] - 2026-10-07
+
 ### ✨ Added
-- Rules now can be groupped by major rule number.
+- Rules now can be grouped by major rule number.
 - Dialog to edit groups names.
 
 ### 🐛 Fixed
-- Unsaved data idicator missing after metadata, tags or version editing.
+- Unsaved data indicator missing after metadata, tags or version editing.
+- Newlines not saved in Markdown output formats.
 
 ## [0.2.2] - 2026-10-05
 
