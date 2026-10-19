@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 For visual categorization of changes emojis are used in accordance with [gitmoji](https://gitmoji.dev).
 
-## [Unreleased]
+## [0.4.0] - 2026-10-19
 
 ### ✨ Added
 - New rules auto-numbering.
@@ -19,6 +19,8 @@ For visual categorization of changes emojis are used in accordance with [gitmoji
 
 ### 🐛 Fixed
 - No unsaved data indicator after new file creation.
+- Removed groups names stored in JSON.
+- Rules stored as unsorted list.
 
 ## [0.3.0] - 2026-10-07
 

@@ -20,6 +20,10 @@ if TYPE_CHECKING:
 class RulesOperator:
 	"""Rules operator."""
 
+	#==========================================================================================#
+	# >>>>> PROPERTIES <<<<< #
+	#==========================================================================================#
+
 	@property
 	def allowed_tags(self) -> tuple[str, ...]:
 		"""Allowed tags."""
@@ -67,6 +71,10 @@ class RulesOperator:
 
 		return self.__data.version
 
+	#==========================================================================================#
+	# >>>>> PRIVATE METHODS <<<<< #
+	#==========================================================================================#
+
 	def __generate_uuid(self) -> str:
 		"""
 		Generate unique UUIDv4.
@@ -103,6 +111,15 @@ class RulesOperator:
 
 		return Number(new_number) if parse else new_number
 
+	def __remove_unused_groups_names(self):
+		"""Remove unused groups names."""
+
+		groups: set[int] = self.groups
+		unused_groups: list[int] = [key for key in self.__data.groups.keys() if key not in groups]
+
+		for key in unused_groups:
+			del self.__data.groups[key]
+
 	def __strip_version_index(self, version: str) -> str:
 		"""
 		Strip version index if exists.
@@ -120,6 +137,10 @@ class RulesOperator:
 			return ".".join(parts)
 
 		return version
+
+	#==========================================================================================#
+	# >>>>> PUBLIC METHODS <<<<< #
+	#==========================================================================================#
 
 	def __init__(self, file: PathLike[str] | str | None = None):
 		"""
@@ -322,6 +343,8 @@ class RulesOperator:
 
 		if not self.__file:
 			return
+
+		self.__remove_unused_groups_names()
 
 		self.__data.rules = tuple(rule.model for rule in self.__rules.values())
 		data: dict = self.__data_adapter.dump_python(self.__data)
