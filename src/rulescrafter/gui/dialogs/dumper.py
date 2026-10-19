@@ -44,7 +44,7 @@ class VersionDumper(QDialog):
 		cancel_button = QPushButton()
 		cancel_button.setText("Cancel")
 		cancel_button.clicked.connect(self.close)
-		
+
 		layout.addWidget(dump_button)
 		layout.addWidget(cancel_button)
 
@@ -72,7 +72,7 @@ class VersionDumper(QDialog):
 
 		self.__new_version = QLineEdit()
 		self.__new_version.setAlignment(Qt.AlignmentFlag.AlignCenter)
-		
+
 		layout.addWidget(self.__old_version)
 		layout.addWidget(label)
 		layout.addWidget(self.__new_version)
@@ -90,7 +90,7 @@ class VersionDumper(QDialog):
 
 		layout.addWidget(version)
 		layout.addWidget(buttons)
-		
+
 		self.setLayout(layout)
 
 	def __init__(self, parent: "MainWindow"):
@@ -104,10 +104,10 @@ class VersionDumper(QDialog):
 		super().__init__(parent)
 
 		self.__window: MainWindow = parent
-		
+
 		self.setWindowTitle("Dump version")
 		self.setMinimumSize(480, 100)
-		
+
 		self.__build()
 
 	def run_dumper(self):
@@ -119,4 +119,4 @@ class VersionDumper(QDialog):
 		self.__new_version.setText(version)
 
 		self.exec()
-		
+

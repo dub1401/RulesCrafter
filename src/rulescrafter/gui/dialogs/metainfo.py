@@ -36,7 +36,7 @@ class MetainfoEditor(QDialog):
 		apply_button = QPushButton()
 		apply_button.setText("Apply")
 		apply_button.clicked.connect(self.__apply)
-		
+
 		layout.addWidget(self.__name)
 		layout.addWidget(self.__description)
 		layout.addWidget(apply_button)
@@ -54,10 +54,10 @@ class MetainfoEditor(QDialog):
 		super().__init__(parent)
 
 		self.__window: MainWindow = parent
-		
+
 		self.setWindowTitle("Metainfo")
 		self.setMinimumSize(480, 360)
-		
+
 		self.__build()
 
 	def run_editor(self):
@@ -66,4 +66,4 @@ class MetainfoEditor(QDialog):
 		self.__name.setText(self.__window.operator.name)
 		self.__description.setText(self.__window.operator.description)
 		self.exec()
-		
+

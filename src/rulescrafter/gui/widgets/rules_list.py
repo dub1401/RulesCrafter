@@ -64,7 +64,7 @@ class RulesList(BaseMainWidget):
 
 	def __select_rule(self):
 		"""Select rule."""
-		
+
 		selected_rule: Rule | None = self.selected_rule
 
 		if selected_rule:
@@ -93,7 +93,7 @@ class RulesList(BaseMainWidget):
 		layout.addWidget(search_input)
 		layout.addWidget(self.__rules_list)
 		layout.addWidget(new_rule_button)
-		
+
 		self.setLayout(layout)
 
 	#==========================================================================================#
@@ -110,7 +110,7 @@ class RulesList(BaseMainWidget):
 
 		self.main_window.operator.remove_rule(rule_id)
 		self.update_rules()
-		
+
 	def update_rules(self, search: str | None = None):
 		"""
 		Update rules list.

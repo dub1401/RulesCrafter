@@ -33,7 +33,7 @@ class TagsEditor(QDialog):
 		apply_button = QPushButton()
 		apply_button.setText("Apply")
 		apply_button.clicked.connect(self.__apply)
-		
+
 		layout.addWidget(self.__tags_editor)
 		layout.addWidget(apply_button)
 		self.setLayout(layout)
@@ -49,10 +49,10 @@ class TagsEditor(QDialog):
 		super().__init__(parent)
 
 		self.__window: MainWindow = parent
-		
+
 		self.setWindowTitle("Tags")
 		self.setMinimumSize(480, 360)
-		
+
 		self.__build()
 
 	def run_editor(self):
@@ -61,4 +61,4 @@ class TagsEditor(QDialog):
 		tags: str = ", ".join(self.__window.operator.allowed_tags)
 		self.__tags_editor.setText(tags)
 		self.exec()
-		
+

@@ -128,7 +128,7 @@ class RuleEditor(BaseMainWidget):
 		footer_layout.addWidget(self.__save_button)
 		footer_layout.addWidget(remove_button)
 		footer_layout.addWidget(close_button)
-		
+
 		footer.setLayout(footer_layout)
 
 		return footer
@@ -160,7 +160,7 @@ class RuleEditor(BaseMainWidget):
 
 		footer_layout = QHBoxLayout()
 		footer_layout.setContentsMargins(0, 0, 0, 0)
-		
+
 		footer_layout.addWidget(self.__number, stretch = 2)
 		footer_layout.addWidget(self.__header, stretch = 6)
 		footer_layout.addWidget(self.__tags, stretch = 2)
@@ -191,7 +191,7 @@ class RuleEditor(BaseMainWidget):
 		"""Execute after instance initialization."""
 
 		self.__rule: Rule | None = None
-		
+
 		self.hide()
 
 	#==========================================================================================#
@@ -227,12 +227,12 @@ class RuleEditor(BaseMainWidget):
 
 		self.__rule = rule
 		self.update_tags()
-		
+
 		self.__update()
 		self.__tags.setCurrentText(self.__rule.tags or "")
 
 		self.__indicate_unsaved_data(status = False)
-		
+
 	def update_tags(self):
 		"""Update tags selector."""
 

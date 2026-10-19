@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 def open_link_in_browser(link: str):
 	"""Open link in browser."""
-	
+
 	QDesktopServices.openUrl(QUrl(link))
 
 def select_file(mode: Literal["o", "s"], filters: "Sequence[str] | None" = None, filename: str | None = None) -> SelectedFile | None:

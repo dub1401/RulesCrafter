@@ -57,7 +57,7 @@ class RulesOperator:
 		zero_version = Version("0")
 
 		return tuple(sorted(
-			self.__rules.values(), 
+			self.__rules.values(),
 			key = lambda rule: Version(rule.number) if rule.number else zero_version,
 		))
 
@@ -200,7 +200,7 @@ class RulesOperator:
 					return self.__increment_number(max_number, parse = False)
 
 		max_number: Number = max(parsed_number for element in self.__rules.values() if (parsed_number := element.parsed_number))
-		
+
 		return self.__increment_number(max_number, parse = False)
 
 	def generate_version(self) -> str:
@@ -221,7 +221,7 @@ class RulesOperator:
 
 			case 2:
 				version += ".1"
-				
+
 			case 3:
 				parts: list[str] = version.split(".")
 				index: int = int(parts[-1])
@@ -306,7 +306,7 @@ class RulesOperator:
 
 		del self.__rules[rule_id]
 		self.save()
-	
+
 	def rename(self, name: str | None):
 		"""
 		Rename ruleset.
@@ -325,7 +325,7 @@ class RulesOperator:
 
 		self.__data.rules = tuple(rule.model for rule in self.__rules.values())
 		data: dict = self.__data_adapter.dump_python(self.__data)
-		
+
 		json.write(self.__file, data)
 
 	def set_allowed_tags(self, tags: "Sequence[str]"):
@@ -369,7 +369,7 @@ class RulesOperator:
 		"""
 
 		self.__file = Path(file).with_suffix(".json")
-		
+
 	def set_version(self, version: str):
 		"""
 		Set ruleset version.

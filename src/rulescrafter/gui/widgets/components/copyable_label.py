@@ -22,8 +22,8 @@ class CopyableLabel(QLabel):
 
 		if ev and ev.button() == Qt.MouseButton.LeftButton:
 			clipboard = QApplication.clipboard()
-			
+
 			if clipboard:
 				clipboard.setText(self.text())
-			
+
 		super().mousePressEvent(ev)

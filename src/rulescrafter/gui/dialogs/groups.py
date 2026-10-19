@@ -33,7 +33,7 @@ class GroupsEditor(QDialog):
 
 			group: int = int(widget.placeholderText())
 			name: str | None = zerotify(widget.text())
-			
+
 			self.__window.operator.set_group_name(group, name)
 
 		self.__window.set_unsaved_state(True)
@@ -48,7 +48,7 @@ class GroupsEditor(QDialog):
 		apply_button = QPushButton()
 		apply_button.setText("Apply")
 		apply_button.clicked.connect(self.__apply)
-		
+
 		self.__scroll_area = QScrollArea()
 		self.__scroll_area.setWidgetResizable(True)
 
@@ -89,10 +89,10 @@ class GroupsEditor(QDialog):
 		super().__init__(parent)
 
 		self.__window: MainWindow = parent
-		
+
 		self.setWindowTitle("Groups")
 		self.setMinimumSize(480, 360)
-		
+
 		self.__build()
 
 	def run_editor(self):
@@ -100,4 +100,4 @@ class GroupsEditor(QDialog):
 
 		self.__update_editors()
 		self.exec()
-		
+

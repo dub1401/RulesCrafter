@@ -39,4 +39,3 @@ class PDFBuilder:
 
 		generator.add_section(Section(markdown.build()))
 		generator.save(file_path)
-	

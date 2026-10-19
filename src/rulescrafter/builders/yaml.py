@@ -17,7 +17,7 @@ class YAMLBuilder:
 		:param operator: Rules operator.
 		:type operator: RulesOperator
 		"""
-		
+
 		self.__operator: RulesOperator = operator
 
 	def dump_to_file(self, file_path: PathLike[str] | str):
@@ -30,7 +30,7 @@ class YAMLBuilder:
 
 
 		file_path = Path(file_path)
-		
+
 		if file_path.suffix != ".yaml":
 			file_path = file_path.with_suffix(".yml")
 
@@ -42,4 +42,3 @@ class YAMLBuilder:
 			rule["tags"] = list(rule["tags"])
 
 		yaml.write(file_path, data)
-	

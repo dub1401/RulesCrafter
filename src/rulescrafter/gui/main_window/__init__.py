@@ -27,7 +27,7 @@ if TYPE_CHECKING:
 	from os import PathLike
 
 	from PyQt6.QtWidgets import QMenuBar
-	
+
 class MainWindow(QMainWindow):
 	"""Main window."""
 
@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
 	def operator(self) -> RulesOperator:
 		"""
 		Rules operator.
-		
+
 		:raises NoRulesetError: Ruleset not opened.
 		"""
 
@@ -228,7 +228,7 @@ class MainWindow(QMainWindow):
 		new_button.setIcon(icons.NEW)
 		new_button.setText("Create new ruleset")
 		new_button.clicked.connect(lambda: self.open_file(True))
-		
+
 		open_button = QPushButton()
 		open_button.setIcon(icons.OPEN)
 		open_button.setText("Open ruleset")
@@ -288,7 +288,7 @@ class MainWindow(QMainWindow):
 		"""Main window."""
 
 		super().__init__()
-		
+
 		self.__operator: RulesOperator | None = None
 		self.__window_title: str = "RulesCrafter"
 		self.__menu_file_interactors: list[QAction | QMenu] = []
@@ -296,7 +296,7 @@ class MainWindow(QMainWindow):
 		self.setWindowTitle(self.__window_title)
 		self.setMinimumSize(QSize(640, 480))
 		self.resize(1280, 720)
-		
+
 		self.__build()
 
 	def close_file(self):
@@ -339,7 +339,7 @@ class MainWindow(QMainWindow):
 
 	def save_file(self):
 		"""Save file."""
-		
+
 		if not self.__operator:
 			raise exceptions.NoRulesetError()
 
