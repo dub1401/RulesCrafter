@@ -120,6 +120,16 @@ class RulesOperator:
 		for key in unused_groups:
 			del self.__data.groups[key]
 
+	def __sort_rules(self):
+		"""Sort rules by numbers."""
+
+		sorted_rules: list[Rule] = sorted(
+			self.__rules.values(),
+			key = lambda element: element.parsed_number or Number("0.0.0"),
+		)
+
+		self.__rules = {rule.id: rule for rule in sorted_rules}
+
 	def __strip_version_index(self, version: str) -> str:
 		"""
 		Strip version index if exists.
@@ -345,6 +355,7 @@ class RulesOperator:
 			return
 
 		self.__remove_unused_groups_names()
+		self.__sort_rules()
 
 		self.__data.rules = tuple(rule.model for rule in self.__rules.values())
 		data: dict = self.__data_adapter.dump_python(self.__data)
