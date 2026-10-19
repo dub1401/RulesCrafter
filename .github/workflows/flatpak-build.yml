@@ -1,5 +1,8 @@
 name: Build Flatpak
 
+permissions:
+  contents: write
+
 on:
   release:
     types: [published]
@@ -10,11 +13,8 @@ on:
         required: true
         type: string
 
-permissions:
-  contents: write
-
 jobs:
-  build:
+  flatpak-build:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11

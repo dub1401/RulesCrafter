@@ -7,7 +7,7 @@
             "name": "python3-dublib",
             "buildsystem": "simple",
             "build-commands": [
-                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"dublib>=0.31.1\" --no-build-isolation"
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"dublib>=0.32.0\" --no-build-isolation"
             ],
             "sources": [
                 {
@@ -22,8 +22,8 @@
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl",
-                    "sha256": "62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775"
+                    "url": "https://files.pythonhosted.org/packages/08/ba/95dd616042484f7c83a06974388b37b837732740ee70bc5dc715b5fcd55a/certifi-2026.10.18-py3-none-any.whl",
+                    "sha256": "73191c47aaa79da394e8fee2dbc2ec827432cab56311122c9e47abf79e390f62"
                 },
                 {
                     "type": "file",
@@ -47,8 +47,8 @@
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/f4/cf/a843f1086ac9cd23c011f73e89a0971e4c8f686fb059f8b6663d3cb3dbec/dublib-0.31.1-py3-none-any.whl",
-                    "sha256": "c5f2a8c6e311ff6c869c4c7c136e394bac7058477da7f003acfba445982b34f8"
+                    "url": "https://files.pythonhosted.org/packages/7c/6e/8104ab147c0d2432e83bc6431881a3ac5e6217a108c1e13170b3b42ac44b/dublib-0.32.0-py3-none-any.whl",
+                    "sha256": "601fad4c5cae893f2d3bb80a2bb6b6491497dfde395b3747950ee644469470b6"
                 },
                 {
                     "type": "file",
@@ -103,21 +103,21 @@
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/e8/3d/1087453384dbde46a8c7f9356eead2c58be8a7bf156bca40243377c85715/more_itertools-11.1.0-py3-none-any.whl",
-                    "sha256": "4b65538ae22f6fed0ce4874efd317463a7489796a0939fa66824dd542125a192"
+                    "url": "https://files.pythonhosted.org/packages/5d/57/3c4b1c6f2e0cc29ba023802458ea3d2a996f87085559e4a5f2192d549532/more_itertools-11.2.1-py3-none-any.whl",
+                    "sha256": "35a7377edd1dd6608dcb2cdf534ded55ea32d49448875ad042cd3f879fb1ded0"
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/bc/74/89bb236deb9565f99434b13052bb40ddfcce4adf3afbfa3132ee7e421468/orjson-3.12.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-                    "sha256": "1c680706fc8396d95e7c4c1f9482563f552137aef91b57237a3ad5aaf64629df",
+                    "url": "https://files.pythonhosted.org/packages/45/46/f8d83189ff5b7b2ff225a58c5908618cc4e86afe09e65d17a30ac68c9da4/orjson-3.13.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+                    "sha256": "cbed5f4c4b88d94bcc36115f4c3bb3aa25da1563a5c3328aa3acebce2b083040",
                     "only-arches": [
                         "x86_64"
                     ]
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/7d/40/094cc53126a3d22f76cdf83b6ea67338bed01d774037621a785aa8e6e5ea/orjson-3.12.0-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
-                    "sha256": "784106539f4b9d4b930e0b4eb8d45168507dae001945e71b4675a367f1e5e806",
+                    "url": "https://files.pythonhosted.org/packages/6d/31/d0cfebd456defb234414795ae7599696bf124843dfe077d0c9ece0c93554/orjson-3.13.0-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+                    "sha256": "b081f0e7b600ff24513dec4ca75507fa05e904607847e386e8310d5b7b96b6c7",
                     "only-arches": [
                         "aarch64"
                     ]
@@ -134,26 +134,26 @@
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl",
-                    "sha256": "b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992"
+                    "url": "https://files.pythonhosted.org/packages/90/11/0e6f11117525ff0eec40ebac3d313376f102df93ca44ad9e893ee85e4f89/pycparser-3.11-py3-none-any.whl",
+                    "sha256": "51d5a8ba2be0bbe440b99d2112604c95bbbc3c2748a64260186c541e1729cd80"
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/eb/47/c95ffc2009878c7aac0c5e08528022dcb885933252a88b5f170058014464/pydantic-2.13.5-py3-none-any.whl",
-                    "sha256": "346a034f080da3755d8e9cb5e00e8b07de1d39e4f6e2c87d8ab7cafa0b269a73"
+                    "url": "https://files.pythonhosted.org/packages/35/ea/a56b9fe5066f3537b7882f77e9c5dfb26d8c2eefdaed9b5fc73d57b4dc22/pydantic-2.14.1-py3-none-any.whl",
+                    "sha256": "9195d967ec791692a04438115466764fb8b9a27b31f14a760437694f40d6b454"
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/d3/f2/9e4de77a6271e07a76d2d58b11c091a979c191ed2939bf80067568b369d2/pydantic_core-2.46.5-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-                    "sha256": "6f7b393a8b3da82f5c1fc0751e6d01ac6c55b93c18226a60bdfba4a724efafd1",
+                    "url": "https://files.pythonhosted.org/packages/1c/bc/d79d000e5203ebef39af839f2ce77a777fcad6e08ad26af9a2fcd114ffc8/pydantic_core-2.50.1-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+                    "sha256": "17e722e156d0444ecaefbe640bdb60928752bf2013e2b7a11cdb099aaae19bec",
                     "only-arches": [
                         "x86_64"
                     ]
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/0f/a3/c05ca796e1197618a774b01e596aeedfefc2f7d8c01ae3054e910b120e8a/pydantic_core-2.46.5-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
-                    "sha256": "193375f3548919d3f0b60936ca113ada3e38f264f91b9b8e0508efaad57be931",
+                    "url": "https://files.pythonhosted.org/packages/4d/b8/fbfc25875219cc060e613170ff10e850c6d8924beb4910da57c2ee3ba1d2/pydantic_core-2.50.1-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+                    "sha256": "409e0ea40ec30d9158f33574fd758e689f6045a0f2596701828c27816ca9687d",
                     "only-arches": [
                         "aarch64"
                     ]
@@ -210,8 +210,8 @@
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/c6/03/d6ac97d7010451c43679c3efc46ff6b9e149cb3293ff93cf65f30fa58a54/ua_generator-2.1.6-py3-none-any.whl",
-                    "sha256": "877285e6adab3d6b0f9b295d954d121fc21a0305be8526038218e8f08be76df6"
+                    "url": "https://files.pythonhosted.org/packages/be/ef/29c7191d1b0912b9414d31c56b7eee8cd2feaf55710737e477a1841aec12/ua_generator-2.1.7-py3-none-any.whl",
+                    "sha256": "8a80cca9568188fa7a63e3764b05f36c6ccff75b32f86255d67cfd28c59b4de9"
                 },
                 {
                     "type": "file",
@@ -220,8 +220,8 @@
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/fa/6e/3e955517e22cbdd565f2f8b2e73d52528b14b8bcfdb04f62466b071de847/validators-0.35.0-py3-none-any.whl",
-                    "sha256": "e8c947097eae7892cb3d26868d637f79f47b4a0554bc6b80065dfe5aac3705dd"
+                    "url": "https://files.pythonhosted.org/packages/d5/ce/fc5090ea3789bdfd22e90f2515b237194c5dacfc8f26d2082a0b50b2ca86/validators-0.36.0-py3-none-any.whl",
+                    "sha256": "c52ad00435e385b95fa4d6dd3081cb20c0660e7fd07b214523c8584dd2edba34"
                 },
                 {
                     "type": "file",
@@ -274,8 +274,8 @@
             "sources": [
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl",
-                    "sha256": "62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775"
+                    "url": "https://files.pythonhosted.org/packages/08/ba/95dd616042484f7c83a06974388b37b837732740ee70bc5dc715b5fcd55a/certifi-2026.10.18-py3-none-any.whl",
+                    "sha256": "73191c47aaa79da394e8fee2dbc2ec827432cab56311122c9e47abf79e390f62"
                 },
                 {
                     "type": "file",
@@ -399,16 +399,16 @@
             "sources": [
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/e5/83/85a6c63c24905af4924fddb11a499b934913f59a134248367a1ef1a4716f/uv-0.12.23-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-                    "sha256": "565c6e2874dbeae86c02f3dea97255e878fec672659a73d4930c6b93fcab2fff",
+                    "url": "https://files.pythonhosted.org/packages/14/0b/6602a613533602e7a083e908c4375f9b0e78a94ba2e21c29b21c41a0a611/uv-0.13.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+                    "sha256": "696dcf6d807d85da978f4db8472da81dccc1254b18b52cbd1367c4d923c421e0",
                     "only-arches": [
                         "x86_64"
                     ]
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/39/77/ff15f878a215b543fd5aa05d2e3f939f3a2c46502ff58362eb5b51434af3/uv-0.12.23-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.musllinux_1_1_aarch64.whl",
-                    "sha256": "895137194d242cc8075c3006288b485af54feeae68512f4ffc96f75b27543cc0",
+                    "url": "https://files.pythonhosted.org/packages/9f/6a/ff4c51a245345a167eed090e8cea27d5979e8b665c97617805bb8748966f/uv-0.13.1-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.musllinux_1_1_aarch64.whl",
+                    "sha256": "f2518450da2f6d0ea8a943c9f402abda63d5a66acc9999216c2792115b922ba4",
                     "only-arches": [
                         "aarch64"
                     ]
@@ -424,16 +424,16 @@
             "sources": [
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/7e/b1/7d5040e48ab3e933e15b00416186801be97c6df843d750a50f17e1fd1c04/uv_build-0.12.23-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-                    "sha256": "4e620fd0cc2c43dac47e5292dfcde8d7e7acd05fc19f40156cfeed2a9030f5ff",
+                    "url": "https://files.pythonhosted.org/packages/ee/28/703ec80567cfe5c60ba8b2aa2b8941c0f18333828f00188aa82bb0d1c098/uv_build-0.12.24-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+                    "sha256": "57025a08ad963c5f3f0a573d848a39b6adf9d6095b47b87abbad68af07e9699e",
                     "only-arches": [
                         "x86_64"
                     ]
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/94/cc/9f6b22d3590683dc9591fe0d34953852b1dfaae65a3290c51d52d3cefcf1/uv_build-0.12.23-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.musllinux_1_1_aarch64.whl",
-                    "sha256": "60dc7b632202cb0fc587fc73fe22d69a5b8fed84ef323e610439f5f88e73c45b",
+                    "url": "https://files.pythonhosted.org/packages/e9/1d/7b7e0e16c6f0a412a9827c182c257817973399392b60f6cd3d02c06f4c95/uv_build-0.12.24-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.musllinux_1_1_aarch64.whl",
+                    "sha256": "a2b21c7e80ae89e460706765ed80136ea65bbbb3e70308c34c13ecafd63df9a6",
                     "only-arches": [
                         "aarch64"
                     ]

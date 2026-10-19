@@ -1,0 +1,23 @@
+name: Flatpak manifest linter
+
+on:
+  push:
+    paths:
+      - "flatpak/**"
+  pull_request:
+    paths:
+      - "flatpak/**"
+
+jobs:
+  flatpak-manifest-lint:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-builder-lint:latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Run manifest linter
+        run: flatpak-builder-lint --gha-format manifest flatpak/io.github.dub1401.RulesCrafter.json
+          

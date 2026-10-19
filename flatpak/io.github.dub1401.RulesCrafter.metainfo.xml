@@ -4,27 +4,55 @@
 	<metadata_license>MIT</metadata_license>
 	<project_license>GPL-3.0</project_license>
 	<name>RulesCrafter</name>
-	<developer_name>dub1401</developer_name>
-	<launchable type="desktop-id">io.github.dub1401.RulesCrafter.desktop</launchable>
-	<content_rating type="oars-1.1" />
 	<summary>Rules crafting system</summary>
 	<summary xml:lang="ru">Система построения наборов правил</summary>
+	<developer id="io.github.dub1401">
+		<name>dub1401</name>
+	</developer>
+	<url type="homepage">https://github.com/dub1401/RulesCrafter</url>
+	<url type="bugtracker">https://github.com/dub1401/RulesCrafter/issues</url>
+	<launchable type="desktop-id">io.github.dub1401.RulesCrafter.desktop</launchable>
+	<content_rating type="oars-1.1" />
 	<description>
 		<p>Simple management system for rulesets: create, edit and sync rules via Git.</p>
-		<p xml:lang="ru">Простая система управления наборами правил: создание, редактирование и синхронизация через Git.</p>
+		<p xml:lang="ru">Простая система управления наборами правил: создание, редактирование и
+			синхронизация через Git.</p>
 	</description>
 	<categories>
 		<category>Utility</category>
 		<category>TextTools</category>
 	</categories>
-	<update_contact>https://github.com/dub1401</update_contact>
-  	<launchable type="desktop-id">io.github.dub1401.RulesCrafter.desktop</launchable>
-	<url type="homepage">https://github.com/dub1401/RulesCrafter</url>
-	<url type="bugtracker">https://github.com/dub1401/RulesCrafter/issues</url>
 	<keywords>
 		<keyword>rules</keyword>
 		<keyword xml:lang="ru">правила</keyword>
 		<keyword>editor</keyword>
 		<keyword xml:lang="ru">редактор</keyword>
-  </keywords>
+	</keywords>
+	<releases>
+		<release version="0.4.0" date="2026-10-19">
+			<description>
+				<p>Added:</p>
+				<ul>
+					<li>Auto-numbering for new rules.</li>
+				</ul>
+				<p>Changed:</p>
+				<ul>
+					<li>Increased minimal window size to 640x480.</li>
+					<li>Moved the unsaved data indicator to the left side of the window title.</li>
+					<li>The unsaved data indicator is now displayed only after pressing the Apply
+						button.</li>
+				</ul>
+				<p>Fixed:</p>
+				<ul>
+					<li>Missing unsaved data indicator after creating a new file.</li>
+				</ul>
+				<p>Removed:</p>
+				<ul>
+					<li>Group names stored in JSON.</li>
+					<li>Rules stored as an unsorted list.</li>
+				</ul>
+			</description>
+		</release>
+	</releases>
+	<update_contact>milosta.vlad@gmail.com</update_contact>
 </component>

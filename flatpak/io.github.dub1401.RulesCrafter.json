@@ -18,7 +18,9 @@
 	"separate-locales": false,
 	"rename-icon": "icon",
 	"finish-args": [
-		"--socket=wayland"
+		"--socket=wayland",
+		"--socket=fallback-x11",
+		"--share=ipc"
 	],
 	"modules": [
 		"python3-modules.json",
@@ -35,7 +37,8 @@
 				{
 					"type": "git",
 					"url": "https://github.com/DUB1401/RulesCrafter",
-					"branch": "main"
+					"tag": "v0.4.0",
+					"commit": "46350e91ecc7c142f8dd1e0d4ef25fc24b998b28"
 				}
 			]
 		}
