@@ -1,43 +1,41 @@
 [build-system]
-requires = ["uv-build>=0.12.23,<0.13.0"]
+requires = ["uv-build>=0.13,<0.14"]
 build-backend = "uv_build"
 
 [project]
 name = "RulesCrafter"
-version = "0.4.0"
+version = "0.4.1"
 description = "Rules crafting system."
 readme = "README.md"
+requires-python = ">=3.13"
 authors = [
-    { name = "DUB1401", email = "vlad.milosta@outlook.com" }
+	{ name = "dub1401", email = "vlad.milosta@outlook.com" }
 ]
-requires-python = ">=3.12"
 dependencies = [
-	"dublib>=0.32.0",
+	"dublib>=0.33",
 	"dulwich>=1.2.6",
+	"flatpak-pip-generator",
 	"markdown-pdf",
 	"pyqt6",
-	"pyqt6-multiselect-combobox"
+	"pyqt6-multiselect-combobox",
 ]
 
 [project.optional-dependencies]
-build = ["flatpak_pip_generator", "pyinstaller", "uv"]
-dev = ["ruff", "ty", "typos"]
+build = [
+	"flatpak-pip-generator",
+	"pyinstaller", 
+	"uv"
+]
 
 [project.scripts]
 craft = "rulescrafter:main"
 
-[tool.ruff.lint]
-select = ["A", "ARG", "C", "COM", "E", "F", "I", "N818", "TC", "UP", "W"]
-ignore = ["C901", "E701", "E501", "W191"]
-
-[tool.ruff.lint.isort]
-lines-after-imports = 1
-sections = {"dublib" = ["dublib"]}
-section-order = [
-	"future",
-	"standard-library",
-	"third-party",
-	"dublib",
-	"first-party",
-	"local-folder"
+[dependency-groups]
+dev = [
+	"ruff",
+	"ty",
+	"typos",
 ]
+
+[tool.uv.sources]
+flatpak-pip-generator = { git = "https://github.com/flatpak/flatpak-builder-tools", subdirectory = "pip" }

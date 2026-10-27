@@ -10,10 +10,10 @@ For visual categorization of changes emojis are used in accordance with [gitmoji
 ## [0.4.0] - 2026-10-19
 
 ### ✨ Added
-- New rules auto-numbering.
+- Rules auto-numbering.
 
 ### 🎨 Changed
-- Minimal window size is 640x480.
+- Minimal window size now is 640x480.
 - Unsaved data indicator replaced to left side of window title.
 - Unsaved data indicator now showed only after **Apply** button pressed.
 

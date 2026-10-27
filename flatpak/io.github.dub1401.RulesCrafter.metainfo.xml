@@ -1,58 +1,122 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="desktop">
+<?xml version='1.0' encoding='utf-8'?>
+<component type="desktop-application">
 	<id>io.github.dub1401.RulesCrafter</id>
-	<metadata_license>MIT</metadata_license>
-	<project_license>GPL-3.0</project_license>
 	<name>RulesCrafter</name>
 	<summary>Rules crafting system</summary>
 	<summary xml:lang="ru">Система построения наборов правил</summary>
 	<developer id="io.github.dub1401">
 		<name>dub1401</name>
 	</developer>
+	<metadata_license>MIT</metadata_license>
+	<project_license>GPL-3.0-only</project_license>
+	<update_contact>milosta.vlad@gmail.com</update_contact>
+	<description>
+		<p>Rulesets management system: create, validate and export as JSON, YAML, PDF and Markdown for publication or using with CI.</p>
+		<p xml:lang="ru">Система управления наборами правил: создай, проверь и сохрани как JSON, YAML, PDF или Markdown для публикации или использования в CI.</p>
+	</description>
+	<releases>
+		<release version="0.4.0" date="2026-10-19T08:37:28+00:00" type="stable">
+			<url>https://api.github.com/repos/dub1401/RulesCrafter/releases/417068723</url>
+			<description>
+				<p>✨ Added</p>
+				<ul>
+					<li>New rules auto-numbering.</li>
+				</ul>
+				<p>🎨 Changed</p>
+				<ul>
+					<li>Minimal window size is 640x480.</li>
+					<li>Unsaved data indicator replaced to left side of window title.</li>
+					<li>Unsaved data indicator now showed only after **Apply** button pressed.</li>
+				</ul>
+				<p>🐛 Fixed</p>
+				<ul>
+					<li>No unsaved data indicator after new file creation.</li>
+					<li>Removed groups names stored in JSON.</li>
+					<li>Rules stored as unsorted list.</li>
+				</ul>
+			</description>
+		</release>
+		<release version="0.3.0" date="2026-10-07T06:54:54+00:00" type="stable">
+			<url>https://api.github.com/repos/dub1401/RulesCrafter/releases/405467932</url>
+			<description>
+				<p>✨ Added</p>
+				<ul>
+					<li>Rules now can be grouped by major rule number.</li>
+					<li>Dialog to edit groups names.</li>
+				</ul>
+				<p>🐛 Fixed</p>
+				<ul>
+					<li>Unsaved data indicator missing after metadata, tags or version editing.</li>
+					<li>Newlines not saved in Markdown output formats.</li>
+				</ul>
+			</description>
+		</release>
+		<release version="0.2.2" date="2026-10-05T13:18:14+00:00" type="stable">
+			<url>https://api.github.com/repos/dub1401/RulesCrafter/releases/403733543</url>
+			<description>
+				<p>✨ Added</p>
+				<ul>
+					<li>In **Save as** option ruleset version now used as default filename.</li>
+				</ul>
+				<p>🎨 Changed</p>
+				<ul>
+					<li>Unsaved data indicator now hided only after saving as JSON.</li>
+				</ul>
+				<p>🐛 Fixed</p>
+				<ul>
+					<li>Apply button doesn't enabled after tags changing.</li>
+				</ul>
+			</description>
+		</release>
+		<release version="0.2.1" date="2026-10-05T07:25:25+00:00" type="stable">
+			<url>https://api.github.com/repos/dub1401/RulesCrafter/releases/403462191</url>
+			<description>
+				<p>✨ Added</p>
+				<ul>
+					<li>In editor apply button disabled if no changes.</li>
+					<li>Unsaved data indicator in window title.</li>
+				</ul>
+				<p>🐛 Fixed</p>
+				<ul>
+					<li>When file selection cancelled application crashes.</li>
+					<li>Incorrect rules order in Markdown and PDF.</li>
+					<li>Old date in new versions.</li>
+					<li>Missing tags after reopen rule.</li>
+				</ul>
+			</description>
+		</release>
+		<release version="0.2.0" date="2026-10-01T15:12:20+00:00" type="stable">
+			<url>https://api.github.com/repos/dub1401/RulesCrafter/releases/401089691</url>
+			<description>
+				<p>✨ Added</p>
+				<ul>
+					<li>Export ruleset as YAML.</li>
+					<li>Export ruleset as PDF.</li>
+				</ul>
+			</description>
+		</release>
+		<release version="0.1.0" date="2026-10-01T14:33:52+00:00" type="stable">
+			<url>https://api.github.com/repos/dub1401/RulesCrafter/releases/401053988</url>
+			<description>
+				<p>First release.</p>
+			</description>
+		</release>
+	</releases>
 	<url type="homepage">https://github.com/dub1401/RulesCrafter</url>
 	<url type="bugtracker">https://github.com/dub1401/RulesCrafter/issues</url>
-	<launchable type="desktop-id">io.github.dub1401.RulesCrafter.desktop</launchable>
-	<content_rating type="oars-1.1" />
-	<description>
-		<p>Simple management system for rulesets: create, edit and sync rules via Git.</p>
-		<p xml:lang="ru">Простая система управления наборами правил: создание, редактирование и
-			синхронизация через Git.</p>
-	</description>
 	<categories>
 		<category>Utility</category>
 		<category>TextTools</category>
 	</categories>
+	<recommends>
+		<control>pointing</control>
+		<control>keyboard</control>
+	</recommends>
+	<content_rating type="oars-1.1"/>
+	<launchable type="desktop-id">io.github.dub1401.RulesCrafter.desktop</launchable>
+	<provides/>
 	<keywords>
 		<keyword>rules</keyword>
-		<keyword xml:lang="ru">правила</keyword>
 		<keyword>editor</keyword>
-		<keyword xml:lang="ru">редактор</keyword>
 	</keywords>
-	<releases>
-		<release version="0.4.0" date="2026-10-19">
-			<description>
-				<p>Added:</p>
-				<ul>
-					<li>Auto-numbering for new rules.</li>
-				</ul>
-				<p>Changed:</p>
-				<ul>
-					<li>Increased minimal window size to 640x480.</li>
-					<li>Moved the unsaved data indicator to the left side of the window title.</li>
-					<li>The unsaved data indicator is now displayed only after pressing the Apply
-						button.</li>
-				</ul>
-				<p>Fixed:</p>
-				<ul>
-					<li>Missing unsaved data indicator after creating a new file.</li>
-				</ul>
-				<p>Removed:</p>
-				<ul>
-					<li>Group names stored in JSON.</li>
-					<li>Rules stored as an unsorted list.</li>
-				</ul>
-			</description>
-		</release>
-	</releases>
-	<update_contact>milosta.vlad@gmail.com</update_contact>
 </component>

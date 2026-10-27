@@ -1,5 +1,6 @@
 gnureadline
 maturin
+onnxruntime
 orjson
 pydantic_core
 pymupdf
