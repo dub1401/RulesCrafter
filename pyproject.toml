@@ -16,6 +16,7 @@ dependencies = [
 	"dulwich>=1.2.6",
 	"flatpak-pip-generator",
 	"markdown-pdf",
+	"pydantic>=2",
 	"pyqt6",
 	"pyqt6-multiselect-combobox",
 ]
