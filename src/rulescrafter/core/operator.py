@@ -230,7 +230,12 @@ class RulesOperator:
 					max_number: Number = max(numbers)
 					return self.__increment_number(max_number, parse = False)
 
-		max_number: Number = max(parsed_number for element in self.__rules.values() if (parsed_number := element.parsed_number))
+		numbers: tuple[Number, ...] = tuple(parsed_number for element in self.__rules.values() if (parsed_number := element.parsed_number))
+
+		if not numbers:
+			return "1"
+
+		max_number: Number = max(numbers)
 
 		return self.__increment_number(max_number, parse = False)
 
